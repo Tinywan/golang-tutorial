@@ -6,9 +6,9 @@
 * [1、介绍和安装](/docs/golang_tutoria_01.md)  
 * [2、Hello World ](/docs/golang_tutoria_02.md) 
 
-###  变量、类型和常量
+### 变量、类型和常量  
 
-* 3、变量  
+* [3、变量](/docs/golang_tutoria_03.md)  
 * 4、类型  
 * 5、常量  
 
