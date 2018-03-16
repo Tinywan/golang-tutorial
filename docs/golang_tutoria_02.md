@@ -1,7 +1,7 @@
 Hello World
 ========================
 
-这是本Golang系列教程的第二篇。请阅读 Golang教程：[介绍和安装](/docs/golang_tutoria_01.md) 来了解什么是Golang以及如何安装它。  
+这是本Golang系列教程的第二篇。你可以阅读 Golang 系列教程 第 1 部分：[介绍和安装](/docs/golang_tutoria_01.md) 来了解什么是Golang以及如何安装它。  
 
 除了亲自写代码以外没有更好的方式来学习一门新的编程语言。在这篇教程中我们将开始编写我们的第一个程序。  
 
@@ -23,7 +23,7 @@ Hello World
 
 创建完上面的目录，目录结构如下：  
 
-```bash
+```golang
 go/
     src/
         hello/
@@ -56,7 +56,7 @@ go/
 
 ####  1、使用 go run 命令。在命令提示符中输入以下命令  
 
-```
+```golang
 go run workspacepath/src/hello/helloworld.go
 ```
 
@@ -66,13 +66,13 @@ go run workspacepath/src/hello/helloworld.go
 
 ### 2、使用 go install 命令。在命令提示符中输入以下命令：  
 
-```
+```golang
 go install hello
 ```
 
 然后再输入以下命令运行程序：  
 
-```
+```golang
 workspacepath/bin/hello
 ```
 
@@ -82,7 +82,7 @@ workspacepath/bin/hello
 
 当执行 go install hello时，Go 工具会在工作空间中查找 hello 包（hello 称为一个包，我们将在以后的教程中解释什么是包）。接着它将会在 [工作空间]/bin 下创建（译者注：经过编译、链接）一个名为 hello（在Windows下为 hello.exe） 的二进制文件。执行完 go install hello之后的目录结构如下：  
 
-```bash
+```golang
 go/
     bin/
         hello  -- 译者注：在Windows下是 hello.exe
@@ -101,7 +101,7 @@ go/
 
 下面是我们刚刚编写的 hello world 程序代码：  
 
-```bash
+```golang
 package main //1
 
 import "fmt" //2

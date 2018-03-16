@@ -1,7 +1,7 @@
 
 ##  :orange_book:  持续更新中...
 
-###  介绍
+###  介绍和安装
 
 * [1、介绍和安装](/docs/golang_tutoria_01.md)  
 * [2、Hello World ](/docs/golang_tutoria_02.md) 
@@ -65,3 +65,8 @@
 * 30、错误处理  
 * 31、错误处理  
 * 32、恐慌和恢复
+
+###### 参考  
+* [原文](https://golangbot.com/)  
+* [译者一](http://blog.csdn.net/u011304970/article/details/74797939)  
+* [译者二](https://www.studygolang.com/gctt/Noluye)  
