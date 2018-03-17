@@ -10,8 +10,8 @@
 ### 变量、类型和常量  
 
 * [3、变量](/docs/golang_tutorial_03.md)  
-* 4、类型  
-* 5、常量  
+* [4、类型](/docs/golang_tutorial_04.md)  
+* [5、常量](/docs/golang_tutorial_05.md)  
 
 ###  函数和包
 

@@ -1,4 +1,4 @@
-Hello World
+变量
 ========================
 
 这是本Golang系列教程的第三篇。你可以阅读 Golang 系列教程 第 2 部分：[Hello World](/docs/golang_tutoria_02.md) 。学习如何配置 Golang，并运行 Hello World 程序  
