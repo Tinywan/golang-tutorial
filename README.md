@@ -1,22 +1,20 @@
-#  [在线文档（Online Document）](http://github.tinywan.com/golang-tutorial/)
-
-##  :orange_book:  持续更新中...
+####  :orange_book:  持续更新中...
 
 ###  介绍和安装
 
-* [1、介绍和安装](/docs/golang_tutorial_01.md)  
-* [2、Hello World ](/docs/golang_tutorial_02.md) 
+* #####  [1、介绍和安装](/docs/golang_tutorial_01.md)  
+* #####  [2、Hello World ](/docs/golang_tutorial_02.md) 
 
 ### 变量、类型和常量  
 
-* [3、变量](/docs/golang_tutorial_03.md)  
-* [4、类型](/docs/golang_tutorial_04.md)  
-* [5、常量](/docs/golang_tutorial_05.md)  
+* #####  [3、变量](/docs/golang_tutorial_03.md)  
+* #####  [4、类型](/docs/golang_tutorial_04.md)  
+* #####  [5、常量](/docs/golang_tutorial_05.md)  
 
 ###  函数和包
 
-* 6、函数  
-* 7、包  
+* #####  [6、函数](/docs/golang_tutorial_06.md)    
+* #####  [7、包](/docs/golang_tutorial_07.md)  
 
 ###  条件和循环语句
 
