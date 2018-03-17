@@ -1,4 +1,4 @@
-变量
+3 - 变量
 ========================
 
 这是本Golang系列教程的第三篇。你可以阅读 Golang 系列教程 第 2 部分：[Hello World](/docs/golang_tutoria_02.md) 。学习如何配置 Golang，并运行 Hello World 程序  
@@ -188,7 +188,7 @@ func main() {
 
 ```golang
 my name is naveen , age is 29 and height is 0
-```  
+```
 
 ## 简短声明  
 
@@ -206,13 +206,13 @@ func main() {
 
     fmt.Println("my name is", name, "age is", age)
 }
-```  
+```
 
 运行上面的程序，输出如下：  
 
 ```golang
 my name is naveen age is 29
-```  
+```
 
 简短声明要求 ` := ` 操作符左边的所有变量都有初始值。下面程序将会抛出错误 `cannot assign 1 values to 2 variables`，这是因为 age 没有被赋值。  
 
@@ -226,7 +226,7 @@ func main() {
 
     fmt.Println("my name is", name, "age is", age)
 }
-```  
+```
 
 简短声明的语法要求 `:= `操作符的左边至少有一个变量是尚未声明的。考虑下面的程序：  
 
@@ -245,7 +245,7 @@ func main() {
     b, c = 80, 90 // 给已经声明的变量b和c赋新值
     fmt.Println("changed b is", b, "c is", c)
 }
-```   
+```
 
 上面的程序中，在 `b, c := 40, 50 ` 这一行，虽然变量 b 在之前已经被声明了，但是 c 却是新声明的变量，**因此这是合法的**。该程序的输出为：    
 
@@ -253,7 +253,7 @@ func main() {
 a is 20 b is 30  
 b is 40 c is 50  
 changed b is 80 c is 90 
-```  
+```
 
 但是当我们运行下面的程序  
 
@@ -267,7 +267,7 @@ func main() {
     fmt.Println("a is", a, "b is", b)
     a, b := 40, 50 //error, no new variables
 }
-```  
+```
 
 将会报错：`no new variables on left side of :=` 。这是因为变量 a 和变量 b 都是已经声明过的变量，在` :=` 左侧并没有新的变量被声明。（重要）  
 
@@ -288,7 +288,7 @@ func main() {
     c := math.Min(a, b) // 运行时产生的值
     fmt.Println("minimum value is ", c)
 }
-```  
+```
 
 在上面的程序中， c 的值为 a 和 b 的最小值，该值是在运行时计算的。  
 

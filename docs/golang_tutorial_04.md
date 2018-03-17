@@ -1,4 +1,4 @@
-（四）类型
+4 - 类型
 ========================
 
 这是本Golang系列教程的第四篇。你可以阅读 Golang 系列教程 第 3 部分：[变量](/docs/golang_tutoria_03.md) 。来学习有关变量的知识。  
@@ -230,7 +230,7 @@ func main() {
 ```golang
 sum: (13+34i)
 mul : (-149+191i)
-```  
+```
 
 ##  其他数字类型  
 
@@ -256,7 +256,7 @@ func main() {
     name := first +" "+ last
     fmt.Println("My name is",name)
 }
-```  
+```
 
 上面程序中，first 赋值为字符串 "Naveen"，last 赋值为字符串 "Ramanathan"。+ 操作符可以用于拼接字符串。我们拼接了 first、空格和 last，并将其赋值给 name。  
 
@@ -264,7 +264,7 @@ func main() {
 
 ```golang
 My name is Wan ShaoBo
-```  
+```
 
 还有许多应用于字符串上面的操作，我们将会在一个单独的教程里看见它们。  
 
@@ -285,14 +285,14 @@ func main() {
     sum := i + j //不允许 int + float64
     fmt.Println(sum)
 }
-```  
+```
 
 上面的代码在 C 语言中是完全合法的，然而在 Go 中，却是行不通的。i 的类型是 int ，而 j 的类型是 float64 ，我们正试图把两个不同类型的数相加，Go 不允许这样的操作。如果运行程序，你会得到   
 
 ```golang
 # command-line-arguments
 demo04\demo04-07.go:10:14: invalid operation: i + j (mismatched types int and float64)
-```  
+```
 
 要修复这个错误，i 和 j 应该是相同的类型。在这里，我们把 j 转换为 int 类型。把 v 转换为 T 类型的语法是 T(v)。  
 
@@ -309,13 +309,13 @@ func main() {
     sum := i + int(j) //j is converted to int
     fmt.Println(sum)
 }
-```  
+```
 
 现在，当你运行上面的程序时，会看见输出
 
 ```golang
 122
-```  
+```
 
 赋值的情况也是如此。把一个变量赋值给另一个不同类型的变量，需要显式的类型转换。下面程序说明了这一点。  
 
@@ -331,7 +331,7 @@ func main() {
     var j float64 = float64(i) // 若没有显式转换，该语句会报错
     fmt.Println("j", j)
 }
-```  
+```
 
 在第 9 行，i 转换为 float64 类型，接下来赋值给 j。如果不进行类型转换，当你试图把 i 赋值给 j 时，编译器会抛出错误。  
 

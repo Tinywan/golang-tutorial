@@ -5,8 +5,6 @@ import (
 )
 
 func main() {  
-    i := 55      //int
-    j := 67.8    //float64
-    sum := i + int(j) //j is converted to int
-    fmt.Println(sum)
+    var a = 5.9/8
+    fmt.Printf("a's type %T value %v",a, a)
 }
