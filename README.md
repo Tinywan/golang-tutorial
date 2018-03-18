@@ -69,3 +69,5 @@
 * [原文](https://golangbot.com/)  
 * [译者一](http://blog.csdn.net/u011304970/article/details/74797939)  
 * [译者二](https://www.studygolang.com/gctt/Noluye)  
+
+本文由 [GCTT](https://github.com/studygolang/GCTT) 原创翻译，[Go语言中文网](https://studygolang.com/)首发。

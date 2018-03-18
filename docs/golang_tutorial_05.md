@@ -234,4 +234,6 @@ func main() {
 
 ```golang
 a's type float64 value 0.7375
-```
+```  
+
+本文由 [GCTT](https://github.com/studygolang/GCTT) 原创翻译，[Go语言中文网](https://studygolang.com/)首发。

@@ -120,3 +120,5 @@ func main() { //3
 `func main()`：main函数是一个特殊的函数，它是 Go 程序的入口点。main 函数必须包含在 main package 中。 { 和 } 表示 main 函数的开始和结束。  
 
 `fmt.Println(“Hello World”)`：fmt 包里的 Println 函数用来打印文本到标准输出。  
+
+本文由 [GCTT](https://github.com/studygolang/GCTT) 原创翻译，[Go语言中文网](https://studygolang.com/)首发。

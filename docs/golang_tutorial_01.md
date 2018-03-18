@@ -37,4 +37,6 @@ Golang在所有三种平台的Mac，Windows和Linux上均受支持。您可以�
 
 ## Linux 系统  
 
-从https://golang.org/dl/下载tar文件并将其解压缩到/ `/usr/local/` 。将`/usr/local/go/bin`添加到PATH环境变量中。这应该安装在Linux中。     
+从https://golang.org/dl/下载tar文件并将其解压缩到/ `/usr/local/` 。将`/usr/local/go/bin`添加到PATH环境变量中。这应该安装在Linux中。    
+
+本文由 [GCTT](https://github.com/studygolang/GCTT) 原创翻译，[Go语言中文网](https://studygolang.com/)首发。
