@@ -1,6 +1,6 @@
-##  :orange_book:  持续更新中...
+#  :orange_book:  持续更新中...
 
-##  `go get`安装   
+##  第0章 远程安装    
     
 ```golang
 $ go get github.com/Tinywan/golang-tutorial
