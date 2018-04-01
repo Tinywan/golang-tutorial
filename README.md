@@ -1,5 +1,10 @@
 ##  :orange_book:  持续更新中...
 
+##  `go get`安装   
+    
+```golang
+$ go get github.com/Tinywan/golang-tutorial
+``` 
 ##  第1章 介绍和安装   
 
 ###  [1 - 介绍和安装](/docs/golang_tutorial_01.md)  
