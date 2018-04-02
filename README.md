@@ -1,10 +1,10 @@
 #  :orange_book:  持续更新中...
 
 ##  第0章 远程安装    
-    
+
 ```golang
 $ go get github.com/Tinywan/golang-tutorial
-``` 
+```
 ##  第1章 介绍和安装   
 
 ###  [1 - 介绍和安装](/docs/golang_tutorial_01.md)  
@@ -70,7 +70,11 @@ $ go get github.com/Tinywan/golang-tutorial
 ###  31 - 错误处理  
 ###  32 - 恐慌和恢复  
 
-###### 参考  
+## 官方文档  
+
+* [如何编写Go代码](/docs/how_to_write_go_code.md)  
+
+###### HELP  
 * [原文](https://golangbot.com/)  
 * [译者一](http://blog.csdn.net/u011304970/article/details/74797939)  
 * [译者二](https://www.studygolang.com/gctt/Noluye)  
