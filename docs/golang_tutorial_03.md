@@ -1,7 +1,10 @@
 3 - 变量
 ========================
 
-这是本Golang系列教程的第三篇。你可以阅读 Golang 系列教程 第 2 部分：[Hello World](/docs/golang_tutoria_02.md) 。学习如何配置 Golang，并运行 Hello World 程序  
+上一节：[第二篇  Hello World](/docs/golang_tutoria_02.md)   
+下一节：[第四篇  类型](/docs/golang_tutoria_04.md)   
+
+这是本Golang系列教程的第三篇。  
 
 除了亲自写代码以外没有更好的方式来学习一门新的编程语言。在这篇教程中我们将开始编写我们的第一个程序。  
 

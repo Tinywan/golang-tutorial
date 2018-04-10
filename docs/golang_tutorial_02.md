@@ -1,7 +1,10 @@
 2 - Hello World
 ========================
 
-这是本Golang系列教程的第二篇。你可以阅读 Golang 系列教程 第 1 部分：[介绍和安装](/docs/golang_tutoria_01.md) 来了解什么是Golang以及如何安装它。  
+上一节：[第一篇  介绍和安装](/docs/golang_tutoria_01.md)   
+下一节：[第三篇  变量](/docs/golang_tutoria_03.md)   
+
+这是本Golang系列教程的第二篇。  
 
 除了亲自写代码以外没有更好的方式来学习一门新的编程语言。在这篇教程中我们将开始编写我们的第一个程序。  
 

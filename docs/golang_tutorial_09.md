@@ -1,6 +1,9 @@
 9 - 循环语句  
 ========================
 
+上一节：[第八篇 if else 语句](/docs/golang_tutoria_08.md)   
+下一节：[第十篇 包](/docs/golang_tutoria_10.md)  
+
 这是本Golang系列教程的第9篇。  
 
 循环语句用于重复执行一段代码。  
@@ -34,7 +37,7 @@ func main() {
         fmt.Printf(" %d",i)
     }
 }
-```  
+```
 
 在上面的程序中，`i` 被初始化为 `1`。条件语句判断` i `是否小于等于 `10`，如果是则打印 `i`，否则结束循环。`post` 语句在每次迭代结束时将 `i`递增 `1`。直到`i`的值大于 `10` 循环结束。  
 
@@ -64,14 +67,14 @@ func main() {
     }
     fmt.Printf("\nline after for loop")
 }
-```  
+```
 
 在上面的程序中，每次迭代都会检查`i`的值，如果`i`大于 5 则执行 `break` 语句跳出循环，并执行 for 循环后面的那条 fmt.Printf 语句。上面的程序输出如下：  
 
 ```golang
 1 2 3 4 5  
 line after for loop  
-```  
+```
 
 ## continue  
 
@@ -118,7 +121,7 @@ func main() {
         i += 2
     }
 }
-```  
+```
 
 我们已经知道 `for` 循环头部的三个部分`initialisation`，`condition`，`post` 都是可选的。上面的程序中，忽略了 `initialisation` 和 `post` 部分。`i` 在 `for` 循环之外初始化为 `0`，只要`i <= 10` 循环就一直执行，`i` 在循环体内每次递增 `2`。上面的程序输出为：`0 2 4 6 8 10`。  
 
@@ -138,7 +141,7 @@ func main() {
         i += 2
     }
 }
-```  
+```
 
 可以在 `for` 循环中声明和操作多个变量，比如下面的程序：  
 
@@ -155,7 +158,7 @@ func main() {
     }
 
 }
-```  
+```
 
 上面的程序中，`no` 和` i `被声明并初始化为 `10` 和 `1`。它们在每次迭代结束时递增 `1`。在 `condition` 部分使用 `&&` 操作符来确保 `i` 小于或等于 `10` 并且 `no` 小于或等于 `19`。程序的输出如下：  
 
@@ -170,7 +173,7 @@ func main() {
 17 * 8 = 136  
 18 * 9 = 162  
 19 * 10 = 190 
-```  
+```
 
 ## 无限循环  
 
@@ -179,7 +182,7 @@ func main() {
 ```golang
 for {  
 }
-```  
+```
 
 下面的程序将一直打印` Hello World `永不终止。  
 
@@ -193,7 +196,7 @@ func main() {
         fmt.Println("Hello World")
     }
 }
-```  
+```
 
 如果你在 [go playground ](https://play.golang.org/p/kYQZw1AWT4)执行上面的程序，你将得到一个错误：`process took too long`。请尝试在本地系统中运行它以无限打印`"Hello World"`。  
 

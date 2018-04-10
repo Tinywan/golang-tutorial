@@ -1,6 +1,9 @@
 7 - 包
 ========================
 
+上一节：[第六篇  函数](/docs/golang_tutoria_06.md)   
+下一节：[第八篇  if else 语句](/docs/golang_tutoria_08.md)  
+
 这是本Golang系列教程的第7篇。  
 
 ## 什么是包？为什么使用包？  

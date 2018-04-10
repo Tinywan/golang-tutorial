@@ -1,6 +1,9 @@
 5 - 常量
 ========================
 
+上一节：[第四篇  类型](/docs/golang_tutoria_04.md)   
+下一节：[第六篇  函数](/docs/golang_tutoria_06.md)   
+
 这是本Golang系列教程的第五篇。  
 
 ## 定义常量  
@@ -234,6 +237,6 @@ func main() {
 
 ```golang
 a's type float64 value 0.7375
-```  
+```
 
 本文由 [GCTT](https://github.com/studygolang/GCTT) 原创翻译，[Go语言中文网](https://studygolang.com/)首发。

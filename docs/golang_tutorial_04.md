@@ -1,7 +1,10 @@
 4 - 类型
 ========================
 
-这是本Golang系列教程的第四篇。你可以阅读 Golang 系列教程 第 3 部分：[变量](/docs/golang_tutoria_03.md) 。来学习有关变量的知识。  
+上一节：[第三篇  变量](/docs/golang_tutoria_03.md)   
+下一节：[第五篇  常量](/docs/golang_tutoria_05.md)   
+
+这是本Golang系列教程的第四篇。  
 
 下面是 Go 支持的基本类型  
 
