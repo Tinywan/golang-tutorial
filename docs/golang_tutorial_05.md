@@ -1,8 +1,8 @@
 5 - 常量
 ========================
 
-上一节：[第四篇  类型](/docs/golang_tutoria_04.md)   
-下一节：[第六篇  函数](/docs/golang_tutoria_06.md)   
+上一节：[第四篇  类型](/docs/golang_tutorial_04.md)   
+下一节：[第六篇  函数](/docs/golang_tutorial_06.md)   
 
 这是本Golang系列教程的第五篇。  
 

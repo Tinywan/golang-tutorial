@@ -1,8 +1,8 @@
 8 - if else 语句  
 ========================
 
-上一节：[第七篇  包](/docs/golang_tutoria_07.md)   
-下一节：[第九篇  循环语句](/docs/golang_tutoria_09.md)  
+上一节：[第七篇  包](/docs/golang_tutorial_07.md)   
+下一节：[第九篇  循环语句](/docs/golang_tutorial_09.md)  
 
 这是本Golang系列教程的第8篇。  
 

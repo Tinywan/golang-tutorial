@@ -1,8 +1,8 @@
 2 - Hello World
 ========================
 
-上一节：[第一篇  介绍和安装](/docs/golang_tutoria_01.md)   
-下一节：[第三篇  变量](/docs/golang_tutoria_03.md)   
+上一节：[第一篇  介绍和安装](/docs/golang_tutorial_01.md)   
+下一节：[第三篇  变量](/docs/golang_tutorial_03.md)   
 
 这是本Golang系列教程的第二篇。  
 

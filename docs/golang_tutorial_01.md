@@ -3,7 +3,7 @@
 
 简介：本课程非常重要。  
 
-下一节：[第二篇 Hello World](/docs/golang_tutoria_02.md)   
+下一节：[第二篇 Hello World](/docs/golang_tutorial_02.md)   
 
 ## 什么是Golang  
 

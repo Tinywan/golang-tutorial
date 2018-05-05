@@ -1,8 +1,8 @@
 6 - 函数
 ========================
 
-上一节：[第五篇  常量](/docs/golang_tutoria_05.md)   
-下一节：[第七篇  包](/docs/golang_tutoria_07.md)   
+上一节：[第五篇  常量](/docs/golang_tutorial_05.md)   
+下一节：[第七篇  包](/docs/golang_tutorial_07.md)   
 
 这是本Golang系列教程的第6篇。  
 

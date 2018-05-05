@@ -1,8 +1,8 @@
 3 - 变量
 ========================
 
-上一节：[第二篇  Hello World](/docs/golang_tutoria_02.md)   
-下一节：[第四篇  类型](/docs/golang_tutoria_04.md)   
+上一节：[第二篇  Hello World](/docs/golang_tutorial_02.md)   
+下一节：[第四篇  类型](/docs/golang_tutorial_04.md)   
 
 这是本Golang系列教程的第三篇。  
 
