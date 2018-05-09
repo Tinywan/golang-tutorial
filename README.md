@@ -29,7 +29,7 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ##  第5章 数组、切片和变参函数  
 
-###  11 - 数组和切片  
+###  [11 - 数组和切片](/docs/golang_tutorial_11.md)  
 ###  12 - 变参函数  
 
 ##  第6章 更多的类型   
