@@ -34,13 +34,13 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ##  第6章 更多的类型   
 
-###  13 - Map  
+###  [13 - Map](/docs/golang_tutorial_13.md)  
 ###  14 - 字符串  
 
 ##  第7章 指针、结构体和方法   
 
 ###  15 - 指针  
-###  16 -  结构体  
+###  [16 -  结构体](/docs/golang_tutorial_16.md)  
 ###  17 - 方法  
 
 ##  第8章 接口  

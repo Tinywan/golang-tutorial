@@ -3,15 +3,15 @@ package main
 import "fmt"
 
 const (
-    MethodGet     = "GET"
-    MethodHead    = "HEAD"
-    MethodPost    = "POST"
-    MethodPut     = "PUT"
-    MethodPatch   = "PATCH" // RFC 5789
-    MethodDelete  = "DELETE"
-    MethodConnect = "CONNECT"
-    MethodOptions = "OPTIONS"
-    MethodTrace   = "TRACE"
+	MethodGet     = "GET"
+	MethodHead    = "HEAD"
+	MethodPost    = "POST"
+	MethodPut     = "PUT"
+	MethodPatch   = "PATCH" // RFC 5789
+	MethodDelete  = "DELETE"
+	MethodConnect = "CONNECT"
+	MethodOptions = "OPTIONS"
+	MethodTrace   = "TRACE"
 )
 
 type Person struct {
@@ -29,16 +29,15 @@ type Hourman struct {
 
 type Teacher struct {
 	Hourman // 继承 Hourman 所有
-	Name string
-	Age int
+	Name    string
+	Age     int
 }
 
 type Student struct {
 	Hourman // 继承 Hourman 所有
-	Name string
-	Age int
+	Name    string
+	Age     int
 }
-
 
 func main() {
 	sr1 := Person{}
@@ -99,16 +98,16 @@ func main() {
 	var b Person // 这里必须声明为为Person的类型
 	b = sr8
 	fmt.Println(sr8) // {Name008 26 { }}
-	fmt.Println(b) // {Name008 26 { }}
+	fmt.Println(b)   // {Name008 26 { }}
 
 	// 嵌入和组合的使用
-	te := Teacher{Name:"Student Teacher", Age:48, Hourman: Hourman{Sex: 1}} //初始化操作
-	st := Student{Name:"Wan Student", Age:24, Hourman: Hourman{Sex: 2}}
+	te := Teacher{Name: "Student Teacher", Age: 48, Hourman: Hourman{Sex: 1}} //初始化操作
+	st := Student{Name: "Wan Student", Age: 24, Hourman: Hourman{Sex: 2}}
 	// update
 	te.Name = "2018 Name"
 	te.Age = 12
 	te.Sex = 0
-	fmt.Println(te,st) // {{0} 2018 Name 12} {{2} Wan Student 24}
+	fmt.Println(te, st) // {{0} 2018 Name 12} {{2} Wan Student 24}
 
 }
 
