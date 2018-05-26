@@ -660,5 +660,182 @@ func main() {
 
 我（原文作者）已经将我们讨论的所有概念汇总到一个程序中，你可以从 [github](https://github.com/golangbot/arraysandslices) 下载。  
 
+## 扩展  
+
+####  数组
+[深入解析 Go 中 Slice 底层实现](https://halfrost.com/go_slice/)
+###### 创建（定义）数组
+数组在Go中是值类型，而不是引用（其他语言的数组则是引用类型）
+PS：切片（slice）是一个引用类型
+数组不是统一的类型，大小不同的数组是不可以比较的
+不同数组类型是不可以比较的
+```golang
+var a[2]int
+var b[3]string
+
+// 提前知道数组中的值
+var a[2]int{11,22}
+var a[20]int{19:11} // 索引值为19的元素赋值为 11 ，其他的默认为 0
+
+// 不指定数组的长度 ...
+var c = [...]int{11,22,33,44}
+var d = [...]int{19:90} // 尽可能的满足索引值得数组
+```
+
+###### 指向数组的指针和指向指针的数组
+
+```golang
+//定义数组a
+a := [...]int{19:100}
+
+// 指向数组的指针
+var p *[20]int = &a  //长度为20的int型数组，这里的数组长度`20`必须和a数组长度相等
+fmt.Println(p) //以上表示取这样一个数组的地址 
+// 打印结果：&[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 19]
+
+//指向指针的数组
+x , y  := 1, 2
+pp := [...]*int{&x,&y} // 指向int型的指针，保存的元素是指向int型的指针。输出x,y的地址：
+fmt.Println("pp is ",pp)  // 打印结果：pp is  [0xc420012128 0xc420012130]
+```
+###### new 创建一个数组
+
+```golang
+ ppp := new([10]int)
+fmt.Println("----ppp-------",ppp); //输出结果：`&[0 0 0 0 0 0 0 0 0 0]` 
+//以上为指向数组的指针
+```
+
+###### 两种方式修改数组赋值
+
+```golang
+// 第一种方式
+n := [10]int{}
+n[1] = 10
+fmt.Println("-----1------",n)  // 输出：`[0 10 0 0 0 0 0 0 0 0]`
+
+// 第二种方式
+m := new([10]int)
+m[1] = 20
+fmt.Println("-----2------",m)  // 输出：`&[0 20 0 0 0 0 0 0 0 0]`
+```
+
+###### 多维数组
+
+```golang
+arr := [2][3]int{
+                {1, 2, 3},
+                {4, 5, 6}} //最外面的`}`不可以换行的，否则报错：`syntax error`
+fmt.Println("-----",arr)
+```
+
+#### 冒泡排序
+
+###### 第一种写法
+```golang
+func main(){
+        a :=[...]int64{12,23,293,34,128,132}
+        fmt.Println(a)
+        num := len(a)
+        for i := 0; i<num; i++ {
+                for j := i+1; j<num; j++ {
+                        if a[i]<a[j] {
+                                tmp := a[i]
+                                a[i] = a[j]
+                                a[j] = tmp
+                        }
+                } 
+        }
+        fmt.Println(a)
+}
+```
+> 从大到小排序
+
+###### 第二种写法
+
+```golang
+func main(){
+        a :=[...]int64{12,23,293,34,128,132}
+        fmt.Println(a)
+        num := len(a)
+        for i := 0; i<num; i++ {
+                for j := i+1; j<num; j++ {
+                        if a[i]<a[j] {
+                                a[i],a[j] = a[j],a[i]
+                        }
+                } 
+        }
+        fmt.Println(a)
+}
+```  
+
+#### 切片  
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	a := [10]int{1,2,3,4,5,6,7,8,9}
+	var s1  []int
+	fmt.Println(s1) // 输出：[]
+
+	// 只取一个元素
+	s2 := a[5]
+	fmt.Println(s2) // 输出：6
+
+	// 只取前5个元素
+	s3 := a[:5]
+	fmt.Println(s3) // 输出：[1 2 3 4 5]
+
+	// 只取后5个元素
+	s4 := a[5:]
+	fmt.Println(s4) // 输出：[6 7 8 9 0]
+
+	// 截取某一段元素，不包括最后一个
+	s5 := a[5:8]
+	fmt.Println(s5) // 输出：[6 7 8]
+
+	// 使用make创建一个切片
+	s6 := make([]int, 3, 10) //  func make([]T, len, cap) []T 可以用来创建切片
+	fmt.Println(len(s6),cap(s6));
+
+	s7 := []byte{'a','b','c','d','e','f','g','h','i','j','k'} // 切片底层对应的数组
+
+	slice_a := s7[2:5]
+	fmt.Println(slice_a) //	输出的assica码 值 [99 100 101]
+	fmt.Println(string(slice_a)) // 格式化为字符串输出
+	fmt.Println(len(slice_a),cap(slice_a))
+
+	slice_b := s7[3:5]
+	fmt.Println(string(slice_b)) // 格式化为字符串输出
+
+	// append 函数使用
+	s8 := make([]int, 3, 6) // 3个元素，容量为6的切片
+	fmt.Printf("%p\n", s8)  // 打印内存地址：0xc042074030
+	s8 = append(s8, 12, 48)
+	fmt.Printf("%v %p", s8, s8) // 格式化打印值和内存地址：[0 0 0 12 48] 0xc042074030
+
+	// 追加的元素如果没有超多切片容量，则切片的地址是不变的，否则内存地址会变
+	s8 = append(s8, 66, 88)
+	fmt.Printf("%v %p\n", s8, s8) // [0 0 0 12 48 66 88] 0xc042048060
+
+	// copy 使用
+	s9 := []int{1,2,3,4,5,6,7}
+	s10 := []int{33,44,55}
+	copy(s9,s10) // copy(拷贝，被拷贝)
+	fmt.Println(s9) //[33 44 55 4 5 6 7]
+
+	copy(s10,s9) 
+	fmt.Println(s10) // [33 44 55]
+
+	copy(s9[2:4],s10[0:2]) 
+	fmt.Println(s9) // [1 2 33 44 5 6 7]
+
+	s11 := s7[:]
+	fmt.Println(s11) // copy一个数组的所有
+}
+```  
 
 希望你喜欢阅读。请留下宝贵的意见和反馈:)  
