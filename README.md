@@ -35,7 +35,7 @@ $ go get github.com/Tinywan/golang-tutorial
 ##  第6章 更多的类型   
 
 ###  [13 - Map](/docs/golang_tutorial_13.md)  
-###  14 - 字符串  
+###  [14 - 字符串](/docs/golang_tutorial_14.md)  
 
 ##  第7章 指针、结构体和方法   
 
@@ -67,8 +67,11 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ###  29 - 延迟  
 ###  30 - 错误处理  
-###  31 - 错误处理  
-###  32 - 恐慌和恢复  
+###  31 - 自定义错误  
+###  32 -Panic 和 Recover  
+###  33 - 头等函数  
+###  34 - 反射  
+###  35 - 读文件  
 
 ## 官方文档  
 
