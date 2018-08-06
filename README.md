@@ -41,7 +41,7 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ###  15 - 指针  
 ###  [16 -  结构体](/docs/golang_tutorial_16.md)  
-###  17 - 方法  
+###  [17 -  方法](/docs/golang_tutorial_16.md)  
 
 ##  第8章 接口  
 
