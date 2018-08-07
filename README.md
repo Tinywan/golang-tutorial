@@ -39,7 +39,7 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ##  第7章 指针、结构体和方法   
 
-###  15 - 指针  
+###  [15 - 指针](/docs/golang_tutorial_15.md)   
 ###  [16 -  结构体](/docs/golang_tutorial_16.md)  
 ###  [17 -  方法](/docs/golang_tutorial_17.md)  
 
