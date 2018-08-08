@@ -45,15 +45,15 @@ address of b is 0x1040a124
 
 ## 指针的空值  
 
-指针的空值为 nil 。  
+指针的空值为 `nil` 。  
 
 ```golang
 personSalary := make(map[string]int) 
 ```
 
-上面的代码创建了一个名为 `personSalary` 的 map。其中键的类型为 string，值的类型为 int。  
+上面的代码创建了一个名为 `personSalary` 的 `map`。其中键的类型为 `string`，值的类型为 `int`。  
 
-**map 的 0 值为 `nil`。试图给一个 nil map 添加元素给会导致运行时错误。因此 map 必须通过 make 来初始化** （译者注：也可以使用速记声明来创建 map，见下文）。    
+`**map` 的 `0` 值为 `nil`。试图给一个 `nil map` 添加元素给会导致运行时错误。因此 `map` 必须通过 `make` 来初始化（译者注：**也可以使用速记声明来创建 map**，见下文）。    
 
 ```golang
 package main
@@ -71,11 +71,11 @@ func main() {
 }
 ```
 
-上面的程序中，`personSalary` 为 `nil`，因此使用 make 初始化它。程序的输出为：`map is nil. Going to make one`.   
+上面的程序中，`personSalary` 为 `nil`，因此使用 `make` 初始化它。程序的输出为：`map is nil. Going to make one`.   
 
 ## 向 map 中插入元素  
 
-插入元素给 map 的语法与数组相似。下面的代码插入一些新的元素给 `map personSalary`。  
+插入元素给 `map` 的语法与数组相似。下面的代码插入一些新的元素给 `map personSalary`。  
 ```golang
 package main
 
@@ -113,7 +113,7 @@ func main() {
 }
 ```
 
-上面的程序在声明 personSalary 的同时向其中插入了两个元素。接着插入了一个以 "mike" 为键的元素。程序的输出为：  
+上面的程序在声明 `personSalary` 的同时向其中插入了两个元素。接着插入了一个以 `"mike"` 为键的元素。程序的输出为：  
 
 ```golang
 personSalary map contents: map[steve:12000 jamie:15000 mike:9000] 
@@ -123,7 +123,7 @@ personSalary map contents: map[steve:12000 jamie:15000 mike:9000]
 
 ## 访问 map 中的元素  
 
-现在我们已经添加了一些元素给 map，现在让我们学习如何从 map 中提取它们。根据键获取值的语法为：`map[key]`，例如：  
+现在我们已经添加了一些元素给 `map`，现在让我们学习如何从 `map` 中提取它们。根据键获取值的语法为：`map[key]`，例如：  
 
 ```golang
 package main
@@ -173,15 +173,15 @@ Salary of jamie is 15000
 Salary of joe is 0  
 ```
 
-上面的程序返回 `joe` 的工资为` 0`。我们没有得到任何运行时错误说明键 joe 在 `personSalary` 中不存在。
+上面的程序返回 `joe` 的工资为` 0`。我们没有得到任何运行时错误说明键 `joe` 在 `personSalary` 中不存在。
 
-我们如何检测一个键是否存在于一个 map 中呢？可以使用下面的语法：
+我们如何检测一个键是否存在于一个 `map` 中呢？可以使用下面的语法：
 
 ```golang
 value, ok := map[key]  
 ```
 
-上面的语法可以检测一个特定的键是否存在于 map 中。如果 `ok` 是 `true`，则键存在，value 被赋值为对应的值。如果 `ok` 为 `false`，则表示键不存在。  
+上面的语法可以检测一个特定的键是否存在于 `map` 中。如果 `ok` 是 `true`，则键存在，value 被赋值为对应的值。如果 `ok` 为 `false`，则表示键不存在。  
 
 ```golang
 package main
@@ -213,7 +213,7 @@ func main() {
 joe not found
 ```
 
-range for 可用于遍历 map 中所有的元素（译者注：这里 range 操作符会返回 map 的键和值）。  
+`range for` 可用于遍历 `map` 中所有的元素（译者注：这里 `range` 操作符会返回 `map` 的键和值）。  
 
 ```golang
 package main
@@ -244,11 +244,11 @@ personSalary[steve] = 12000
 personSalary[jamie] = 15000
 ```
 
-值得注意的是，因为 map 是无序的，因此对于程序的每次执行，不能保证使用 range for 遍历 map 的顺序总是一致的。  
+值得注意的是，因为 `map` 是无序的，因此对于程序的每次执行，不能保证使用 `range for` 遍历 `map` 的顺序总是一致的。  
 
 ## 删除元素  
 
-`delete(map, key) `用于删除 map 中的 key。delete 函数没有返回值。  
+`delete(map, key) `用于删除 `map` 中的 `key`。`delete` 函数没有返回值。  
 
 ```golang
 package main
