@@ -2,7 +2,7 @@
 ========================
 
 上一节：[第八篇 if else 语句](/docs/golang_tutorial_08.md)   
-下一节：[第十篇 包](/docs/golang_tutorial_10.md)  
+下一节：[第十篇 switch 语句](/docs/golang_tutorial_10.md)  
 
 这是本Golang系列教程的第9篇。  
 
