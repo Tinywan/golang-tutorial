@@ -2,7 +2,7 @@
 ========================
 
 上一节：[第十篇 if else 语句](/docs/golang_tutorial_10.md)   
-下一节：[第十二篇 包](/docs/golang_tutorial_12.md)  
+下一节：[第十二篇 变参函数](/docs/golang_tutorial_12.md)  
 
 这是本Golang系列教程的第11篇。   
 
