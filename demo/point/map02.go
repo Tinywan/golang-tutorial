@@ -33,6 +33,7 @@ func main(){
 	}else{
 		fmt.Println(newEmp,"not found")
 	}
+	
 	fmt.Println("----------------遍历 map 中所有的元素---------------------")
 	for key,value := range personSalary {
 		fmt.Printf("personSalary[%s] = %d \n",key,value)
