@@ -1,10 +1,10 @@
-12 - 变参函数  
+11 - 变参函数  
 ========================
 
-上一节：[第十一篇 数组和切片](/docs/golang_tutorial_10.md)   
-下一节：[第十三篇 Map](/docs/golang_tutorial_12.md)  
+上一节：[第十篇 if else 语句](/docs/golang_tutorial_10.md)   
+下一节：[第十二篇 包](/docs/golang_tutorial_12.md)  
 
-这是本Golang系列教程的第12篇。   
+这是本Golang系列教程的第11篇。   
 
 ## 什么是变参函数？  
 
@@ -116,6 +116,3 @@ type of nums is []int
 ```
 
 变参函数的介绍到此结束。感谢阅读。  
-
-上一节：[第十一篇 数组和切片](/docs/golang_tutorial_10.md)   
-下一节：[第十三篇 Map](/docs/golang_tutorial_12.md)  
