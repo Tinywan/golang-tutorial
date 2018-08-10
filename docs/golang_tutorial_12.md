@@ -116,3 +116,6 @@ type of nums is []int
 ```
 
 变参函数的介绍到此结束。感谢阅读。  
+
+上一节：[第十一篇 数组和切片](/docs/golang_tutorial_10.md)   
+下一节：[第十三篇 Map](/docs/golang_tutorial_12.md)  
