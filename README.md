@@ -71,7 +71,7 @@ $ go get github.com/Tinywan/golang-tutorial
 ###  32 -Panic 和 Recover  
 ###  33 - 头等函数  
 ###  34 - 反射  
-###  35 - 读文件  
+###  [35 - 读文件](/docs/golang_tutorial_35.md)  
 
 ## 其他文档  
 
