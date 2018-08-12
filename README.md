@@ -73,8 +73,9 @@ $ go get github.com/Tinywan/golang-tutorial
 ###  34 - 反射  
 ###  [35 - 读文件](/docs/golang_tutorial_35.md)  
 
-## 其他文档  
-
-* [如何编写Go代码](/docs/how_to_write_go_code.md)  
+## 文档  
+* [Go 零基础编程入门教程](http://go-courses.tinywan.com/_book/)
+* [Go 语言标准库](http://go-library.tinywan.com/_book/)
+* [如何编写 Go代码](/docs/how_to_write_go_code.md)  
 * [原文](https://golangbot.com/)  
 
