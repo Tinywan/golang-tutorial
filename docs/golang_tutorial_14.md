@@ -9,430 +9,316 @@
 
 string 类型单独提取为一篇教程是因为在 Go 中，string 的实现方式同其他语言的不同。  
 
-## 什么是字符串？  
+## 访问字符串中的字节  
 
-在 Go 中字符串是 byte 数组。可以通过将内容放在双引号 "" 之间的方式来创建一个字符串。让我们看一个简单的例子，该例子创建并打印一个字符串：  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    name := "Hello World"
-    fmt.Println(name)
-}
-```  
-上面输出：`Hello World`。
-
-Go 中的字符串符合 Unicode 标准，并以 UTF-8 编码。
-
-## 如何创建 map？  
-
-可以通过将键和值的类型传递给内置函数 `make` 来创建一个 `map`。语法为：`make(map[KeyType]ValueType)`。（译者注：`map` 的类型表示为 `map[KeyType]ValueType`）例如：   
-
-```golang
-personSalary := make(map[string]int) 
-```
-
-上面的代码创建了一个名为 `personSalary` 的 map。其中键的类型为 string，值的类型为 int。  
-
-**map 的 0 值为 `nil`。试图给一个 nil map 添加元素给会导致运行时错误。因此 map 必须通过 make 来初始化** （译者注：也可以使用速记声明来创建 map，见下文）。    
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    var personSalary map[string]int
-    if personSalary == nil {
-        fmt.Println("map is nil. Going to make one.")
-        personSalary = make(map[string]int)
-    }
-}
-```
-
-上面的程序中，`personSalary` 为 `nil`，因此使用 make 初始化它。程序的输出为：`map is nil. Going to make one`.   
-
-## 向 map 中插入元素  
-
-插入元素给 map 的语法与数组相似。下面的代码插入一些新的元素给 `map personSalary`。  
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := make(map[string]int)
-    personSalary["steve"] = 12000
-    personSalary["jamie"] = 15000
-    personSalary["mike"] = 9000
-    fmt.Println("personSalary map contents:", personSalary)
-}
-```
-
-上面的程序输出：`personSalary map contents: map[steve:12000 jamie:15000 mike:9000]`。  
-
-也可以在声明时初始化一个数组：  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int {
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    fmt.Println("personSalary map contents:", personSalary)
-}
-```
-
-上面的程序在声明 personSalary 的同时向其中插入了两个元素。接着插入了一个以 "mike" 为键的元素。程序的输出为：  
-
-```golang
-personSalary map contents: map[steve:12000 jamie:15000 mike:9000] 
-```
-
-`string` 并不是可以作为键的唯一类型，其他所有可以比较的类型，比如，布尔类型，整型，浮点型，复数类型都可以作为键。如果你想了解更多关于可比较类型的话，请参阅：http://golang.org/ref/spec#Comparison_operators  
-
-## 访问 map 中的元素  
-
-现在我们已经添加了一些元素给 map，现在让我们学习如何从 map 中提取它们。根据键获取值的语法为：`map[key]`，例如：  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    employee := "jamie"
-    fmt.Println("Salary of", employee, "is", personSalary[employee])
-}
-```
-
-上面的程序非常简单。员工 `jamie` 的工资被取出并打印。程序的输出为：`Salary of jamie is 15000`。  
-
-如果一个键不存在会发生什么？`map` 会返回值类型的 `0 `值。比如如果访问了 `personSalary` 中的不存在的键，那么将返回 `int` 的 0 值，也就是 0。  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    employee := "jamie"
-    fmt.Println("Salary of", employee, "is", personSalary[employee])
-    fmt.Println("Salary of joe is", personSalary["joe"])
-}
-```
-
-上面的程序输出为:  
-
-```golang
-Salary of jamie is 15000  
-Salary of joe is 0  
-```
-
-上面的程序返回 `joe` 的工资为` 0`。我们没有得到任何运行时错误说明键 joe 在 `personSalary` 中不存在。
-
-我们如何检测一个键是否存在于一个 map 中呢？可以使用下面的语法：
-
-```golang
-value, ok := map[key]  
-```
-
-上面的语法可以检测一个特定的键是否存在于 map 中。如果 `ok` 是 `true`，则键存在，value 被赋值为对应的值。如果 `ok` 为 `false`，则表示键不存在。  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    newEmp := "joe"
-    value, ok := personSalary[newEmp]
-    if ok == true {
-        fmt.Println("Salary of", newEmp, "is", value)
-    } else {
-        fmt.Println(newEmp,"not found")
-    }
-
-}
-```
-
-在上面的程序中，第 15 行，`ok` 应该为 `false` ，因为 `joe` 不存在。因此程序的输出为：
-
-```golang
-joe not found
-```
-
-range for 可用于遍历 map 中所有的元素（译者注：这里 range 操作符会返回 map 的键和值）。  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    fmt.Println("All items of a map")
-    for key, value := range personSalary {
-        fmt.Printf("personSalary[%s] = %d\n", key, value)
-    }
-}
-```
-
-上面的程序输出如下：  
-
-```golang
-All items of a map  
-personSalary[mike] = 9000  
-personSalary[steve] = 12000  
-personSalary[jamie] = 15000
-```
-
-值得注意的是，因为 map 是无序的，因此对于程序的每次执行，不能保证使用 range for 遍历 map 的顺序总是一致的。  
-
-## 删除元素  
-
-`delete(map, key) `用于删除 map 中的 key。delete 函数没有返回值。  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    fmt.Println("map before deletion", personSalary)
-    delete(personSalary, "steve")
-    fmt.Println("map after deletion", personSalary)
-
-}
-```
-
-上面的程序删除以 `steve` 为键的元素。程序输出为：  
-
-```golang
-map before deletion map[steve:12000 jamie:15000 mike:9000]  
-map after deletion map[mike:9000 jamie:15000] 
-```
-
-## map 的大小  
-
-用内置函数 `len` 获取 map 的大小：  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    fmt.Println("length is", len(personSalary))
-
-}
-```
-
-上面程序中，`len(personSalary) `获取 `personSalary` 的大小。上面的程序输出：`length is 3`。  
-
-##  map 是引用类型  
-
-与切片一样，map 是引用类型。当一个 map 赋值给一个新的变量，它们都指向同一个内部数据结构。因此改变其中一个也会反映到另一个：  
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func main() {  
-    personSalary := map[string]int{
-        "steve": 12000,
-        "jamie": 15000,
-    }
-    personSalary["mike"] = 9000
-    fmt.Println("Original person salary", personSalary)
-    newPersonSalary := personSalary
-    newPersonSalary["mike"] = 18000
-    fmt.Println("Person salary changed", personSalary)
-}
-```
-
-上面的程序中，第 14 行，`personSalary` 赋值给 `newPersonSalary`。下一行，将 `newPersonSalary` 中 `mike` 的工资改为 `18000`。那么在 `personSalary` 中 `mike` 的工资也将变为 `18000`。程序的输出如下：  
-
-```golang
-Original person salary map[steve:12000 jamie:15000 mike:9000]  
-Person salary changed map[jamie:15000 mike:18000 steve:12000] 
-```
-
-将 map 作为参数传递给函数也是一样的。在函数中对 map 的任何修改都会影响在调用函数中看到。  
-
-##  比较 map  
-
-map 不能通过 `== `操作符比较是否相等。`== `操作符只能用来检测 map 是否为 nil。  
-
-```golang
-package main
-
-func main() {  
-    map1 := map[string]int{
-        "one": 1,
-        "two": 2,
-    }
-
-    map2 := map1
-
-    if map1 == map2 {
-    }
-}
-```
-
-上面的程序将会报错：`invalid operation: map1 == map2 (map can only be compared to nil)`。  
-
-比较两个 map 是否相等的方式是一一比较它们的元素是否相等。我会鼓励你为此编写一个程序，使其工作：）  
-
-我（原文作者）已经将我们讨论的所有概念汇总到一个程序中，你可以从 [github](https://github.com/golangbot/arraysandslices) 下载。  
-
-## 知识扩展  
-
-[Go编程基础视频教程笔记](https://study.163.com/course/courseLearn.htm?courseId=306002#/learn/video?lessonId=421019&courseId=306002)  
+因为字符串是字节数组，因此可以访问一个字符串中的字节。  
 
 ```golang
 package main
 
 import (
 	"fmt"
-	"sort"
 )
 
-func main(){
-	// 方式一
-	var m map[int]string // 声明一个map
-	fmt.Println(m)
-	m = map[int]string{} // 初始化一个map
-	fmt.Println(m)
-
-	// 方式二
-	var m2 map[int]string = map[int]string{}
-	fmt.Println(m2)
-
-	// 方式三
-	m3 := map[int]string{}
-	fmt.Println(m3)
-
-	// 设置、获取、删除
-	m3[1] = "Tinywan"
-	a := m3[1]
-	fmt.Println(m3) // map[1:Tinywan]
-	fmt.Println(a)  // Tinywan
-
-	delete(m3,1)  // 删除一个map
-	fmt.Println(m3) // map[]
-
-	// 复杂map 的操作
-	var m5 map[int]map[int]string // 定义
-	m5 = make(map[int]map[int]string) // 通过 make 初始化 最外层的 map
-	
-	m5[1] = make(map[int]string) // 针对外层value 的map进行初始化
-	m5[1][1] = "OK"
-	m_a := m5[1][1]  // 取出map 的值赋予一个变量
-	fmt.Println(m_a) // OK
-
-	// 判断一个map 有没有被初始化，使用多返回值判断
-	m_b, ok := m5[2][1]
-	// 判断是否被初始化操作
-	if !ok {
-		m5[2] = make(map[int]string)
+// 打印字符串中的字节
+func printBytes(s string) {
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%x ", s[i])
 	}
-	m5[2][1] = "OK b"
-	m_b,ok = m5[2][1]
-	fmt.Println(m_b, ok) // OK b true
+}
 
-	// 迭代操作
-	s_map := make([]map[int]string,5) // 以 map 为元素的slice 使用 make 创建一个切片,元素的slic
-	for _,v := range s_map {
-		v = make(map[int]string) // v 是值的拷贝
-		v[1] = "OK"
-		fmt.Println(v);
-	}
-	fmt.Println(s_map)
-
-	// 针对一个 map 直接操作
-	for i := range s_map {
-		s_map[i] = make(map[int]string) 
-		s_map[i][1] = "OK"
-		fmt.Println(s_map[i]);
-	}
-	fmt.Println(s_map)
-
-	// map 的间接排序
-	// map 集合
-	map01 := map[int]string{1:"a", 2:"b", 3:"n", 4:"c", 5:"p", 6:"f"}
-	// 切片
-	slice01 := make([]int, len(map01))
-	i := 0
-	for k, _ := range map01 {
-		slice01[i] = k
-		i++
-	} 
-
-	fmt.Println(slice01) // 返回的是一个无序的数组:[5 6 1 2 3 4] [3 4 5 6 1 2]
-	sort.Ints(slice01)
-	fmt.Println(slice01) // 有序的数组:[1 2 3 4 5 6]
+func main() {
+	name := "Hello World"
+	printBytes(name)
 }
 ```
+在上面的程序中，len(s) 返回字符串中的字节数，我们用一个 for 循环以 16 进制打印这些字节。%x 格式化指示符用来以 16 进制打印参数。上面的程序打印：48 65 6c 6c 6f 20 57 6f 72 6c 64。它们是 "Hello World" 以UTF-8方式编码的Unicode值。对 Unicode 字符集和 UTF-8 编码有一个基本的了解会更好的理解 string 类型。我（原文作者）建议大家阅读：https://naveenr.net/unicode-character-set-and-utf-8-utf-16-utf-32-encoding/ 来学习什么是 Unicode 和 UTF-8。  
+
+让我们修改上面的程序以打印字符串中的字符：  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func printBytes(s string) {  
+    for i:= 0; i < len(s); i++ {
+        fmt.Printf("%x ", s[i])
+    }
+}
+
+
+func printChars(s string) {  
+    for i:= 0; i < len(s); i++ {
+        fmt.Printf("%c ",s[i])
+    }
+}
+
+func main() {  
+    name := "Hello World"
+    printBytes(name)
+    fmt.Printf("\n")
+    printChars(name)
+}
+```
+在第 16 行的 printChars 函数中，%c 格式化指示符用来打印字符串中的字符。上面的程序输出为：
+
+```golang
+48 65 6c 6c 6f 20 57 6f 72 6c 64
+Hello World
+```
+
+虽然上面的程序看起来是一种合法的打印字符串中各个字符的方法，但是这里有一个严重的错误。让我们深入这段代码看看究竟是哪里不对。  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func printBytes(s string) {  
+    for i:= 0; i < len(s); i++ {
+        fmt.Printf("%x ", s[i])
+    }
+}
+
+func printChars(s string) {  
+    for i:= 0; i < len(s); i++ {
+        fmt.Printf("%c ",s[i])
+    }
+}
+
+func main() {  
+    name := "Hello World"
+    printBytes(name)
+    fmt.Printf("\n")
+    printChars(name)
+    fmt.Printf("\n")
+    name = "Señor"
+    printBytes(name)
+    fmt.Printf("\n")
+    printChars(name)
+}
+```
+上面程序的输出为：  
+```golang
+48 65 6c 6c 6f 20 57 6f 72 6c 64
+Hello World
+53 65 c3 b1 6f 72
+SeÃ±or
+```
+
+## rune  
+
+rune 是 Go 中的内置类型，它是 int32 的别名。在 Go 中，rune 表示一个 Unicode 码点。无论一个码点会被编码为多少个字节，它都可以表示为一个 rune。让我们修改上面的程序，使用 rune 来打印字符串中的字符。  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func printBytes(s string) {  
+    for i:= 0; i < len(s); i++ {
+        fmt.Printf("%x ", s[i])
+    }
+}
+
+func printChars(s string) {  
+    runes := []rune(s)
+    for i:= 0; i < len(runes); i++ {
+        fmt.Printf("%c ",runes[i])
+    }
+}
+
+func main() {  
+    name := "Hello World"
+    printBytes(name)
+    fmt.Printf("\n")
+    printChars(name)
+    fmt.Printf("\n\n")
+    name = "Señor"
+    printBytes(name)
+    fmt.Printf("\n")
+    printChars(name)
+}
+```
+
+在上面的程序中，第 14 行，字符串被转换为 tune 切片。然后我们遍历该切片并打印其中的字符。程序的输出如下：  
+
+```golang
+48 65 6c 6c 6f 20 57 6f 72 6c 64
+Hello World
+53 65 c3 b1 6f 72
+Señor
+```  
+上面的输出是正确的。这正是我们想要的结果。  
+
+## 使用 range for 遍历字符串  
+
+上面的程序是遍历字符串中字符的一个正确方式。但是 Go 提供了一种更简单的方式来做到这一点：使用 range for。  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func printCharsAndBytes(s string) {  
+    for index, rune := range s {
+        fmt.Printf("%c starts at byte %d\n", rune, index)
+    }
+}
+
+func main() {  
+    name := "Señor"
+    printCharsAndBytes(name)
+}
+```
+
+在上面的程序中，第 8 行通过使用 range for 遍历字符串。range 返回一个 rune （在 byte 数组中）的位置，以及 rune 本身。上面的程序输出为：  
+
+```golang
+S starts at byte 0
+e starts at byte 1
+ñ starts at byte 2
+o starts at byte 4
+r starts at byte 5
+```  
+
+从上面的输出可以看到，ñ 占两个字节：）
+
+## 通过 byte 切片创建字符串  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    byteSlice := []byte{0x43, 0x61, 0x66, 0xC3, 0xA9}
+    str := string(byteSlice)
+    fmt.Println(str)
+}
+```
+在上面的程序中，byteSlice 是 "Café" 经过 UTF-8 编码后得到的切片（用 16 进制表示） 。上面的程序输出为：Café。  
+
+如果我们换成对应的十进制数程序会正常工作吗？答案是：Yes。让我们测试一下：  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    byteSlice := []byte{67, 97, 102, 195, 169}//decimal equivalent of {'\x43', '\x61', '\x66', '\xC3', '\xA9'}
+    str := string(byteSlice)
+    fmt.Println(str)
+}
+```
+上面的程序同样输出：Café。  
+
+## 通过 rune 切片创建字符串  
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    runeSlice := []rune{0x0053, 0x0065, 0x00f1, 0x006f, 0x0072}
+    str := string(runeSlice)
+    fmt.Println(str)
+}
+```  
+在上面的程序中，runeSlice 包含了字符串 "Señor" 的 Unicode 码点（以 16 进制表示）。程序的输出为：Señor。  
+
+## 字符串的长度  
+utf8 包 提供了 func RuneCountInString(s string) (n int) 来获取字符串的长度，该方法接受一个字符串作为参数，并返回该字符串中 rune 的数量。  
+
+（译者注： RuneCountInString 返回字符串中 Unicode 字符的个数，而 len 返回字符串中 byte 的个数，注意两者的区别。 ）  
+
+```golang
+package main
+
+import (  
+    "fmt"
+    "unicode/utf8"
+)
+
+func length(s string) {  
+    fmt.Printf("length of %s is %d\n", s, utf8.RuneCountInString(s))
+}
+func main() {  
+
+    word1 := "Señor" 
+    length(word1)
+    word2 := "Pets"
+    length(word2)
+}
+```  
+
+上面程序的输出为：  
+
+```golang
+length of Señor is 5  
+length of Pets is 4 
+```  
+
+##  字符串是不可变的   
+
+在 Go 中字符串是不可变的。字符串一旦被创建就无法改变。  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func mutate(s string)string {  
+    s[0] = 'a'//any valid unicode character within single quote is a rune 
+    return s
+}
+func main() {  
+    h := "hello"
+    fmt.Println(mutate(h))
+}
+```  
+
+上面的程序中，第 8 行我们试图改变字符串的第一个字符为 a。因为字符串是不可变的，因此这是非法的，将会报错：main.go:8: cannot assign to s[0]。  
+
+为了改变一个字符串中的字符，我们需要先把字符串转换为 rune 切片，然后修改切片中的内容，最后将这个切片转换回字符串。  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func mutate(s []rune) string {  
+    s[0] = 'a' 
+    return string(s)
+}
+func main() {  
+    h := "hello"
+    fmt.Println(mutate([]rune(h)))
+}
+```  
+
+在上面的程序中，第 7 行 mutate 函数接受一个 rune 切片作为参数。然后将该切片的第一个元素改为 a，最后再转换回字符串并返回。该函数在程序中的第 13 行被调用。h 被转换为一个 rune 切片传递给 mutate。程序的输出为：aello。
+
+字符串的介绍到此为止。感谢阅读。  
 
 希望你喜欢阅读。请留下宝贵的意见和反馈:)  
