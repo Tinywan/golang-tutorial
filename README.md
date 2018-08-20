@@ -1,4 +1,7 @@
-![Goroutines-explained](images/logo001.gif)  
+<div align="center">
+  <img src="images/logo001.gif"/><br><br>
+</div>  
+
 #  :orange_book:  持续更新中...
 
 ##  第0章 安装    
