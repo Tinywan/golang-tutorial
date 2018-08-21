@@ -56,7 +56,7 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ###  20 - 并发介绍  
 ###  [ 21 - 协程](/docs/golang_tutorial_21.md)  
-###  22 - 管道  
+###  [22 - 信道](/docs/golang_tutorial_22.md)  
 ###  23 - 缓冲信道和工作池  
 ###  24 - Select   
 ###  25 - Mutex  
