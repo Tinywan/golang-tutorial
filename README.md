@@ -38,8 +38,8 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ####  第6章 更多的类型   
 
-###  [13 - Map](/docs/golang_tutorial_13.md)  
-###  [14 - 字符串](/docs/golang_tutorial_14.md)  
+######  [13 - Map](/docs/golang_tutorial_13.md)  
+######  [14 - 字符串](/docs/golang_tutorial_14.md)  
 
 ####  第7章 指针、结构体和方法   
 
@@ -47,7 +47,7 @@ $ go get github.com/Tinywan/golang-tutorial
 ######  [16 -  结构体](/docs/golang_tutorial_16.md)  
 ######  [17 -  方法](/docs/golang_tutorial_17.md)  
 
-#####  第8章 接口  
+####  第8章 接口  
 
 ######  18 - 接口一  
 ######  19 - 接口二  
@@ -56,7 +56,7 @@ $ go get github.com/Tinywan/golang-tutorial
 
 ######  20 - 并发介绍  
 ######  [ 21 - 协程](/docs/golang_tutorial_21.md)  
-######  22 - 管道  
+######  [22 - 信道](/docs/golang_tutorial_22.md)  
 ######  23 - 缓冲信道和工作池  
 ######  24 - Select   
 ######  25 - Mutex  
