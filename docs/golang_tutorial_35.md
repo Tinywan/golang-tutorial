@@ -1,7 +1,9 @@
 
 35 - 读取文件  
 ========================
-
+<div align="center">
+  <img src="../images/golang-read-files.png"/><br><br>
+</div>  
 上一节：[第十六篇 结构体](/docs/golang_tutorial_16.md)  
 下一节：[第十八篇 接口一](/docs/golang_tutorial_18.md)  
 
