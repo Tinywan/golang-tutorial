@@ -1,7 +1,7 @@
 13 - Map 集合  
 ========================
 
-上一节：[第十一篇 变参函数](/docs/golang_tutorial_12.md)   
+上一节：[第十二篇 变参函数](/docs/golang_tutorial_12.md)   
 下一节：[第十四篇 字符串](/docs/golang_tutorial_14.md)  
 
 这是本Golang系列教程的第13篇。   
