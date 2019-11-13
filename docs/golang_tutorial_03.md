@@ -165,7 +165,7 @@ new width is 100 new height is  50
 有些时候我们需要在一条语句中**声明多个不同类型的变量**。我们可以使用下面的语法达到此目的：  
 ```golang
 var (  
-      name1 = initialvalue1,
+      name1 = initialvalue1
       name2 = initialvalue2
 )
 ```
