@@ -66,7 +66,7 @@ error main.go:11: const initializer math.Sqrt(4) is not a constant.
 const hello = "Hello World"  
 ```
 
-上面的代码将 "Hello World" 赋给一个名为 hello 的常量。那么现在常量** hello** 是不是就有了类型？答案是：No。hello 仍然没有类型。 
+上面的代码将 "Hello World" 赋给一个名为 `hello` 的常量。那么现在常量 `hello` 是不是就有了类型？答案是：No。`hello` 仍然没有类型。 
 
 Go是一种强类型语言。 所有变量都需要显式类型。 变量 `name` 被赋值为一个无类型的常量 `"Sam"`，它是如何工作的呢？  
 
@@ -84,7 +84,7 @@ func main() {
 }
 ```
 
-答案是无类型常量有一个默认的类型，当且仅当代码中需要无类型常量提供类型时，它才会提供该默认类型。在语句 `var name = "Sam" `中，`name`需要一个类型，因此它从常量 "Sam" 中获取其默认类型：`string`。  
+答案是无类型常量有一个默认的类型，当且仅当代码中需要无类型常量提供类型时，它才会提供该默认类型。在语句 `var name = "Sam" `中，`name`需要一个类型，因此它从常量 `"Sam"` 中获取其默认类型：`string`。  
 
 <u>（译者注：这里可以理解为常量是无类型的，但是在需要类型的场合，编译器会根据常量的值和上下文将常量转换为相应的类型。）</u>
 
@@ -116,7 +116,9 @@ func main() {
 
 接着我们创建了一个名为 `customName` 的 `myString` 类型的变量，并将常量 `"Sam"` 赋给它。因为常量 `"Sam"` 是无类型的所以可以将它赋值给任何字符串变量。因此这个赋值是合法的，`customName` 的类型是 `myString`。  
 
-现在我们有两个变量：string 类型的 `defaultName` 和 `myString` 类型的 `customName`。尽管我们知道 `myString` 是 string 的一个别名，但是Go的强类型机制不允许将一个类型的变量赋值给另一个类型的变量。<u>**因此，customName = defaultName 这个赋值是不允许的，编译器会报错：main.go:10: cannot use defaultName (type string) as type myString in assignment  **</u>   
+现在我们有两个变量：string 类型的 `defaultName` 和 `myString` 类型的 `customName`。尽管我们知道 `myString` 是 string 的一个别名，但是Go的强类型机制不允许将一个类型的变量赋值给另一个类型的变量。
+
+<u>因此，customName = defaultName 这个赋值是不允许的，编译器会报错：main.go:10: cannot use defaultName (type string) as type myString in assignment </u>   
 
 ## 布尔常量  
 
@@ -180,7 +182,7 @@ func main() {
 
 在上面的程序中，所有变量的类型都是由数值常量决定的。在语法上看，`5` 在是一个整数，`5.6 `是一个浮点数，` 5 + 6i `是一个复数。运行上面的程序，输出为：`i's type int, f's type float64, c's type complex128`  
 
-<u>（译者注：编译器可以根据字面值常量的表现形式来确定它的默认类型，比如 5.6 表现为浮点数，因此它的默认类型为 float64 ，而 "Sam" 表现为字符串，因此它的默认类型为 stirng。）</u>  
+<u>（译者注：编译器可以根据字面值常量的表现形式来确定它的默认类型，比如 5.6 表现为浮点数，因此它的默认类型为 float64 ，而 "Sam" 表现为字符串，因此它的默认类型为 string。）</u>  
 
 现在应该很清楚下面的程序是如何工作的了：  
 
