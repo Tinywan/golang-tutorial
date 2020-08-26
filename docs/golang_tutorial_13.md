@@ -1,4 +1,4 @@
-13 - Map 集合  
+13 - Map  
 ========================
 
 上一节：[第十二篇 变参函数](/docs/golang_tutorial_12.md)   
@@ -8,9 +8,9 @@
 
 ## 什么是 map？  
 
-Map 是 Go 中的内置类型，它将键与值绑定到一起。可以通过键获取相应的值。  
+Map 是 Go 中的内置类型，它将键与值绑定到一起。可以通过键获取相应的值。Map与其他语言（例如Python）中的dictionary非常相似。
 
-## 如何创建 map？  
+## 如何创建 map？
 
 可以通过将键和值的类型传递给内置函数 `make` 来创建一个 `map`。语法为：`make(map[KeyType]ValueType)`。（译者注：`map` 的类型表示为 `map[KeyType]ValueType`）例如：   
 
@@ -18,9 +18,9 @@ Map 是 Go 中的内置类型，它将键与值绑定到一起。可以通过键
 personSalary := make(map[string]int) 
 ```
 
-上面的代码创建了一个名为 `personSalary` 的 map。其中键的类型为 string，值的类型为 int。  
+上面的代码创建了一个名为 `personSalary` 的 map。其中键的类型为 `string`，值的类型为 `int`。  
 
-**map 的 0 值为 `nil`。试图给一个 nil map 添加元素给会导致运行时错误。因此 map 必须通过 make 来初始化** （译者注：也可以使用速记声明来创建 map，见下文）。    
+**map 的 0 值为 `nil`。试图给一个 nil map 添加元素给会导致运行时错误。因此 map 必须通过 `make` 来初始化** （译者注：也可以使用速记声明来创建 map，见下文）。    
 
 ```golang
 package main
@@ -42,7 +42,8 @@ func main() {
 
 ## 向 map 中插入元素  
 
-插入元素给 map 的语法与数组相似。下面的代码插入一些新的元素给 `map personSalary`。  
+插入元素给 map 的语法与数组相似。下面的代码插入一些新的元素给名为 `personSalary` 的 map。  
+
 ```golang
 package main
 
@@ -61,7 +62,7 @@ func main() {
 
 上面的程序输出：`personSalary map contents: map[steve:12000 jamie:15000 mike:9000]`。  
 
-也可以在声明时初始化一个数组：  
+也可以在声明时初始化一个 map：  
 
 ```golang
 package main
@@ -86,7 +87,7 @@ func main() {
 personSalary map contents: map[steve:12000 jamie:15000 mike:9000] 
 ```
 
-`string` 并不是可以作为键的唯一类型，其他所有可以比较的类型，比如，布尔类型，整型，浮点型，复数类型都可以作为键。如果你想了解更多关于可比较类型的话，请参阅：http://golang.org/ref/spec#Comparison_operators  
+`string` 并不是可以作为键的唯一类型，其他所有可以比较的类型，比如，布尔类型，整型，浮点型，复数类型都可以作为键。甚至用户自定义的类型，如 `struct`，也可以作为键。如果你想了解更多关于可比较类型的话，请参阅：http://golang.org/ref/spec#Comparison_operators  
 
 ## 访问 map 中的元素  
 
@@ -140,7 +141,7 @@ Salary of jamie is 15000
 Salary of joe is 0  
 ```
 
-上面的程序返回 `joe` 的工资为` 0`。我们没有得到任何运行时错误说明键 joe 在 `personSalary` 中不存在。
+上面的程序返回 `joe` 的工资为` 0`。我们没有得到任何运行时错误说明键 `joe` 在 `personSalary` 中不存在。
 
 我们如何检测一个键是否存在于一个 map 中呢？可以使用下面的语法：
 
@@ -180,7 +181,9 @@ func main() {
 joe not found
 ```
 
-range for 可用于遍历 map 中所有的元素（译者注：这里 range 操作符会返回 map 的键和值）。  
+## 遍历 map 中的所有元素
+
+`for` 循环的 `range` 形式可用于遍历 map 中所有的元素（译者注：这里 `range` 操作符会返回 map 的键和值）。  
 
 ```golang
 package main
@@ -193,8 +196,8 @@ func main() {
     personSalary := map[string]int{
         "steve": 12000,
         "jamie": 15000,
+	"mike":  9000,
     }
-    personSalary["mike"] = 9000
     fmt.Println("All items of a map")
     for key, value := range personSalary {
         fmt.Printf("personSalary[%s] = %d\n", key, value)
@@ -211,11 +214,11 @@ personSalary[steve] = 12000
 personSalary[jamie] = 15000
 ```
 
-值得注意的是，因为 map 是无序的，因此对于程序的每次执行，不能保证使用 range for 遍历 map 的顺序总是一致的。  
+值得注意的是，因为 map 是无序的，因此对于程序的每次执行，不能保证使用 `for range` 遍历 map 的顺序总是一致的，而且遍历的顺序也不完全与元素添加的顺序一致。
 
 ## 删除元素  
 
-`delete(map, key) `用于删除 map 中的 key。delete 函数没有返回值。  
+`delete(map, key)` 用于删除 map 中的键。`delete` 函数没有返回值。  
 
 ```golang
 package main
@@ -242,6 +245,62 @@ func main() {
 ```golang
 map before deletion map[steve:12000 jamie:15000 mike:9000]  
 map after deletion map[mike:9000 jamie:15000] 
+```
+
+如果我们试图删除一个原 map 中不存在的键，运行 `delete` 时仍不会报错。
+
+## 结构体 map （Map of Structs）
+
+目前我们编写了存储员工工资的 map，那么可否将员工的国籍也存储在 map 中呢？这可以通过结构体 map 来完成。每个员工可以用一个包含了“工资”和“国籍”的结构体来表示，这些结构体将被存储在一个键为 `string` 类型，值为 `struct` 类型的 map 中。
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+type employee struct {  
+    salary  int
+    country string
+}
+
+func main() {  
+    emp1 := employee{
+        salary:  12000,
+        country: "USA",
+    }
+    emp2 := employee{
+        salary:  14000,
+        country: "Canada",
+    }
+    emp3 := employee{
+        salary:  13000,
+        country: "India",
+    }
+    employeeInfo := map[string]employee{
+        "Steve": emp1,
+        "Jamie": emp2,
+        "Mike":  emp3,
+    }
+
+    for name, info := range employeeInfo {
+        fmt.Printf("Employee: %s Salary:$%d  Country: %s\n", name, info.salary, info.country)
+    }
+
+}
+```
+
+以上程序中，`employee` 结构体包含了 `salary` 和 `country`。
+
+在第25行，我们创建了一个 map，键为字符串类型，值为 `employee` 结构体，并添加了我们创建的三个员工。
+
+在第31行，我们遍历这个 map，打印出所有员工的信息：
+
+```golang
+Employee: Mike Salary:$13000  Country: India  
+Employee: Steve Salary:$12000  Country: USA  
+Employee: Jamie Salary:$14000  Country: Canada  
 ```
 
 ## map 的大小  
@@ -303,7 +362,7 @@ Person salary changed map[jamie:15000 mike:18000 steve:12000]
 
 ##  比较 map  
 
-map 不能通过 `== `操作符比较是否相等。`== `操作符只能用来检测 map 是否为 nil。  
+map 不能通过 `==` 操作符比较是否相等。`==` 操作符只能用来检测 map 是否为 `nil`。  
 
 ```golang
 package main
@@ -323,7 +382,7 @@ func main() {
 
 上面的程序将会报错：`invalid operation: map1 == map2 (map can only be compared to nil)`。  
 
-比较两个 map 是否相等的方式是一一比较它们的元素是否相等。我会鼓励你为此编写一个程序，使其工作：）  
+比较两个 map 是否相等的方式是一一比较它们的元素是否相等。希望你能自己探索并编写一个达成这一功能的程序:)  
 
 我（原文作者）已经将我们讨论的所有概念汇总到一个程序中，你可以从 [github](https://github.com/golangbot/arraysandslices) 下载。  
 
@@ -363,6 +422,8 @@ func main(){
         "school":"BAT_UN"
 	}
 	fmt.Println(m4)
+	
+	// 方式五
 	m5 := make(map[string][string])
 	m5["name"] = "Linux"
 	m5["school"] = "Unix"
@@ -397,7 +458,7 @@ func main(){
 	fmt.Println(m_b, ok) // OK b true
 
 	// 迭代操作
-	s_map := make([]map[int]string,5) // 以 map 为元素的slice 使用 make 创建一个切片,元素的slic
+	s_map := make([]map[int]string,5) // 以 map 为元素的 slice 使用 make 创建一个切片，切片内的每个元素为一个 map
 	for _,v := range s_map {
 		v = make(map[int]string) // v 是值的拷贝
 		v[1] = "OK"
