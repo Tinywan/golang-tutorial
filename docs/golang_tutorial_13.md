@@ -113,7 +113,7 @@ func main() {
 
 上面的程序非常简单。员工 `jamie` 的工资被取出并打印。程序的输出为：`Salary of jamie is 15000`。  
 
-如果一个键不存在会发生什么？`map` 会返回值类型的 `0 `值。比如如果访问了 `personSalary` 中的不存在的键，那么将返回 `int` 的 0 值，也就是 0。  
+如果一个键不存在会发生什么？`map` 会返回值类型的 `0` 值。比如如果访问了 `personSalary` 中的不存在的键，那么将返回 `int` 的 0 值，也就是 0。  
 
 ```golang
 package main
@@ -325,7 +325,7 @@ func main() {
 }
 ```
 
-上面程序中，`len(personSalary) `获取 `personSalary` 的大小。上面的程序输出：`length is 3`。  
+上面程序中，`len(personSalary)` 获取 `personSalary` 的大小。上面的程序输出：`length is 3`。  
 
 ##  map 是引用类型  
 
@@ -382,11 +382,11 @@ func main() {
 
 上面的程序将会报错：`invalid operation: map1 == map2 (map can only be compared to nil)`。  
 
-比较两个 map 是否相等的方式是一一比较它们的元素是否相等。希望你能自己探索并编写一个达成这一功能的程序:)  
+比较两个 map 是否相等的方式是一一比较它们的元素是否相等。希望你能自己探索并编写一个达成这一功能的程序 :)  
 
 我（原文作者）已经将我们讨论的所有概念汇总到一个程序中，你可以从 [github](https://github.com/golangbot/arraysandslices) 下载。  
 
-希望你喜欢阅读。请留下宝贵的意见和反馈:)   
+希望你喜欢阅读。请留下宝贵的意见和反馈 :)   
 
 ## 以下为扩展知识  
 
