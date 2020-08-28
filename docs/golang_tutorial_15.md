@@ -184,3 +184,98 @@ value of a before function call is 58
 value of a after function call is 55 
 ```
 
+## 从函数中返回指针
+
+从函数中返回一个局部变量的指针是完全可以的，Go 语言的编译器会将这个变量分配到堆中。
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func hello() *int {  
+    i := 5
+    return &i
+}
+func main() {  
+    d := hello()
+    fmt.Println("Value of d", *d)
+}
+```
+
+在第 9 行中，我们从 `hello` 函数中返回了局部变量 `i` 的地址。 **该操作在 C/C++ 等语言中是未定义的，因为一旦 `hello` 函数执行“返回”之后，变量 `i` 就不再存在于当前域（scope）内了。但是在 Go 语言中，编译器会进行“逃逸分析”（escape analysis）并且在地址离开当前域时将 `i` 分配到堆中。** 因此这一程序可以运行，输出为：
+
+```golang
+Value of d 5
+```
+
+## 不要将指向数组的指针传入函数中！要用切片
+
+假设我们想要在一个函数内部对一个数组进行更改，一种实现方法是将一个指向数组的指针传入函数。
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func modify(arr *[3]int) {  
+    (*arr)[0] = 90
+}
+
+func main() {  
+    a := [3]int{89, 90, 91}
+    modify(&a)
+    fmt.Println(a)
+}
+```
+
+在第 13 行，我们将数组 `a` 的地址传入 `modify` 函数。在第 8 行，`modify` 函数内，我们间接引用了 `arr` 并且将数组的第一个元素改为 `90`。这个程序会输出：`[90 90 91]`。
+
+**a[x] 是 (\*a)[x] 的简写形式，所以上面程序中的 (\*arr)[0] 可以被 arr[0] 代替。** 我们用简写方法重写这个程序：
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func modify(arr *[3]int) {  
+    arr[0] = 90
+}
+
+func main() {  
+    a := [3]int{89, 90, 91}
+    modify(&a)
+    fmt.Println(a)
+}
+```
+
+这个程序也会输出：`[90 90 91]`。
+
+**尽管我们可以通过将指向数组的指针传入函数中来对数组进行修改，但是这在 Go 语言中并不是地道的方式，我们应该用切片来解决这类问题。**
+
+我们用切片来重写之前的程序：
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func modify(sls []int) {  
+    sls[0] = 90
+}
+
+func main() {  
+    a := [3]int{89, 90, 91}
+    modify(a[:])
+    fmt.Println(a)
+}
+```
+
