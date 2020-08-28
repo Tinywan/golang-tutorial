@@ -67,3 +67,92 @@ func main() {
 }
 ```
 
+'b' 首先被初始化为 `nil`，之后被赋值为 `a` 的地址，程序输出为：
+
+```golang
+b is <nil>  
+b after initialization is 0x1040a124
+```
+
+## 利用 `new` 函数创建指针
+
+Go 还提供一个实用的函数 `new` 来创建指针。`new` 函数接收一个类型，并返回一个该类型的空值指针。
+
+我们来看一个实例：
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    size := new(int)
+    fmt.Printf("Size value is %d, type is %T, address is %v\n", *size, size, size)
+    *size = 85
+    fmt.Println("New size value is", *size)
+}
+```
+
+上面的程序中，我们在第 8 行利用 `new` 函数创建了一个指向 `int` 类型的指针。由于 `int` 类型的空值为 `0`，变量 `size` 是一个指向 `0` 的整数指针（`*int` 类型）。
+
+程序输出：
+
+```golang
+Size value is 0, type is *int, address is 0x414020  
+New size value is 85
+```
+
+## 指针的间接引用
+
+间接引用（dereference）指针就是获取指针所指向的变量的值。间接引用 `a` 的语句是 `*a`。例如：
+
+```golang
+package main  
+import (  
+    "fmt"
+)
+
+func main() {  
+    b := 255
+    a := &b
+    fmt.Println("address of b is", a)
+    fmt.Println("value of b is", *a)
+}
+```
+
+在第 10 行，我们间接引用了 `a` 并打印了它的值，也就是 `b` 的值。程序输出为：
+
+```golang
+address of b is 0x1040a124  
+value of b is 255  
+```
+
+我们再编写一个利用指针改变变量 `b` 的值的程序：
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    b := 255
+    a := &b
+    fmt.Println("address of b is", a)
+    fmt.Println("value of b is", *a)
+    *a++
+    fmt.Println("new value of b is", b)
+}
+```
+
+在第 12 行，我们将 `a` 所指向的值加上了 1，也就是改变了 `b` 的值（因为 `a` 指向 `b`）。因此 `b` 变成了256，程序输出：
+
+```golang
+address of b is 0x1040a124  
+value of b is 255  
+new value of b is 256  
+```
+
