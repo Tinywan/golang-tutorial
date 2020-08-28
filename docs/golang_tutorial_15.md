@@ -279,3 +279,22 @@ func main() {
 }
 ```
 
+在第 13 行，我们将一个切片传入了 `modify` 函数，这个函数将切片的第一个元素改为 `90`，程序输出仍然是：`[90 90 91]`。 **因此，不要再把指向数组的指针传入函数了，应该使用的是切片 :)**
+
+## Go 不支持指针的算术运算
+
+不像 C/C++ 中的指针可以进行算术运算，Go 语言并不支持指针算术运算。
+
+```golang
+package main
+
+func main() {  
+    b := [...]int{109, 110, 111}
+    p := &b
+    p++
+}
+```
+
+上面的程序会出现编译错误：`main.go:6: invalid operation: p++ (non-numeric type *[3]int)`。
+
+我（原文作者）在 [github](https://github.com/golangbot/pointers) 上创建了一个简单的小程序，包含了我们这次所学的全部内容。
