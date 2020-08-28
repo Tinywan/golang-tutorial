@@ -156,3 +156,31 @@ value of b is 255
 new value of b is 256  
 ```
 
+## 将指针传入函数
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func change(val *int) {  
+    *val = 55
+}
+func main() {  
+    a := 58
+    fmt.Println("value of a before function call is",a)
+    b := &a
+    change(b)
+    fmt.Println("value of a after function call is", a)
+}
+```
+
+在第 14 行，我们将存有 `a` 的地址的指针 `b` 传入了 `change` 函数。`change` 函数通过间接引用的方法改变了 `a` 的值，程序输出：
+
+```golang
+value of a before function call is 58  
+value of a after function call is 55 
+```
+
