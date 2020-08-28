@@ -1,16 +1,16 @@
 16 - 结构体  
 ========================
 
-上一节：[第十篇 if else 语句](/docs/golang_tutorial_10.md)   
-下一节：[第十二篇 包](/docs/golang_tutorial_12.md)  
+上一节：[第十五篇 指针](/docs/golang_tutorial_15.md)   
+下一节：[第十七篇 方法](/docs/golang_tutorial_17.md)  
 
-这是本Golang系列教程的第16篇。   
+这是本Golang系列教程的第16篇。
 
 ## 什么是结构体？  
 
 结构体（struct）是用户自定义的类型，它代表若干字段的集合。有些时候将多个数据看做一个整体要比单独使用这些数据更有意义，这种情况下就适合使用结构体。  
 
-比如将一个员工的 firstName, lastName 和 age 三个属性打包在一起成为一个 `employee` 结构就是很有意义的。  
+比如，我们可以将一个员工的 firstName, lastName 和 age 三个属性打包在一起成为一个 `employee` 结构体。  
 
 ## 结构体的声明  
 
@@ -22,7 +22,7 @@ type Employee struct {
 }
 ```
 
-上面的代码片段声明了一个名为 `Employee` 的结构体类型，它拥有 firstName，lastName 和 age 三个字段。同一类型的多个字段可以合并到一行（用逗号分隔），并将类型放在后面。上面的结构体中 firstName 与 lastName 都是 string 类型，因此可以将它们写在一起。   
+上面的代码片段声明了一个名为 `Employee` 的结构体类型，它拥有 `firstName`，`lastName` 和 `age` 三个字段。同一类型的多个字段可以合并到一行（用逗号分隔），并将类型放在后面。上面的结构体中 `firstName` 与 `lastName` 都是 `string` 类型，因此可以将它们写在一起。
 
 ```golang
 type Employee struct {  
@@ -31,9 +31,11 @@ type Employee struct {
 }
 ```
 
-上面的结构体 `Employee` 是一个**具名结构体`（named structure）`**，因为它创建了一个具有名字的结构体类型： `Employee` 。我们可以定义具名结构体类型的变量。  
+*(尽管以上语句节省了代码行数，但是这会导致字段定义不够清晰，请尽量避免使用以上语句的定义方式)*
 
-我们也可以定义一个没有类型名称的结构体，这种结构体叫做**匿名结构体（anonymous structures）**。  
+上面的结构体 `Employee` 是一个**具名结构体 `（named structure）`** ，因为它创建了一个具有名字的结构体类型：`Employee`。我们可以定义具名结构体类型的变量。  
+
+我们也可以定义一个没有类型名称的结构体，这种结构体叫做**匿名结构体 `（anonymous structures）`**。  
 
 ```golang
 var employee struct {  
@@ -42,7 +44,7 @@ var employee struct {
 }
 ```  
 
-上面的代码片段声明了一个匿名结构体变量 employee。  
+上面的代码片段声明了一个匿名结构体变量 `employee`。  
 
 ## 定义具名结构体变量  
 
