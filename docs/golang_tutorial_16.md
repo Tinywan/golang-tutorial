@@ -333,3 +333,42 @@ Ricky
 10
 ```
 
+## 嵌套结构体
+
+我们也可以创建一个包含结构体作为字段的结构体，这叫做嵌套结构体。例如：
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+type Address struct {  
+    city  string
+    state string
+}
+
+type Person struct {  
+    name    string
+    age     int
+    address Address
+}
+
+func main() {  
+    p := Person{
+        name: "Ricky",
+        age:  10,
+        address: Address{
+            city:  "Chicago",
+            state: "Illinois",
+        },
+    }
+
+    fmt.Println("Name:", p.name)
+    fmt.Println("Age:", p.age)
+    fmt.Println("City:", p.address.city)
+    fmt.Println("State:", p.address.state)
+}
+```
+
