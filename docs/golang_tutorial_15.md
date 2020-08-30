@@ -2,10 +2,10 @@
 15 - 指针  
 ========================
 
-上一节：[第十四篇 字符串](/docs/golang_tutorial_14.md)   
-下一节：[第十六篇 结构体](/docs/golang_tutorial_16.md)  
+上一节：[第十篇 if else 语句](/docs/golang_tutorial_10.md)   
+下一节：[第十二篇 包](/docs/golang_tutorial_12.md)  
 
-这是本Golang系列教程的第15篇。我们将学习 Go 语言中指针的作用，并且将 Go 指针与其他语言（如 C/C++）的指针进行区分。
+这是本Golang系列教程的第15篇。  
 
 ## 什么是指针？
 
@@ -13,14 +13,13 @@
 
 ![pointer-explained](../images/pointer-explained.png)  
 
-在上图中，变量 `b` 的值是 `156`，存储在地址为 `0x1040a124` 的内存中。变量 `a` 存储了变量 `b` 的地址，也可以说 `a` 指向 `b`。  
+在上图中，变量 `b` 的值是 `156`，存储在地址为 `0x1040a124` 的内存中。变量 `a` 存储了变量 `b` 的地址。现在可以说 `a` 指向 `b`。  
 
 ## 指针的声明  
 
 指向类型 `T` 的指针用 `*T` 表示。  
 
-让我们写一些代码。
-
+让我们写一些代码。  
 ```golang
 package main
 
@@ -36,18 +35,25 @@ func main() {
 }
 ```
 
-`&` 操作符用来获取一个变量的地址。在上面的程序中，第 9 行我们将 `b` 的地址赋给 `a`（`a` 的类型为 `*int`）。现在我们说 `a` 指向了 `b`。当我们打印 `a` 的值时，`b` 的地址将会被打印出来。程序的输出为：
-
+`&` 操作符用来获取一个变量的地址。在上面的程序中，第 9 行我们将 `b` 的地址赋给 `a`（`a` 的类型为 `*int`）。现在我们说 `a` 指向了 `b`。当我们打印 `a` 的值时，`b` 的地址将会被打印出来。程序的输出为：  
 ```
-Type of a is *int
-address of b is 0x1040a124
+Type of a is *int  
+address of b is 0x1040a124  
 ```
 
-你可能得到的是一个不同的 `b` 的地址，因为 `b` 可能被存储在内存的任意一个地方。  
+你可能得到的是一个不同的 `b` 的地址，因为 `b` 可以在内存中的任何地方。  
 
-## 指针的零值  
+## 指针的空值  
 
-指针的零值为 `nil`。  
+指针的空值为 `nil` 。  
+
+```golang
+personSalary := make(map[string]int) 
+```
+
+上面的代码创建了一个名为 `personSalary` 的 `map`。其中键的类型为 `string`，值的类型为 `int`。  
+
+`**map` 的 `0` 值为 `nil`。试图给一个 `nil map` 添加元素给会导致运行时错误。因此 `map` 必须通过 `make` 来初始化（译者注：**也可以使用速记声明来创建 map**，见下文）。    
 
 ```golang
 package main
@@ -57,28 +63,38 @@ import (
 )
 
 func main() {  
-    a := 25
-    var b *int
-    if b == nil {
-        fmt.Println("b is", b)
-        b = &a
-        fmt.Println("b after initialization is", b)
+    var personSalary map[string]int
+    if personSalary == nil {
+        fmt.Println("map is nil. Going to make one.")
+        personSalary = make(map[string]int)
     }
 }
 ```
 
-'b' 首先被初始化为 `nil`，之后被赋值为 `a` 的地址，程序输出为：
+上面的程序中，`personSalary` 为 `nil`，因此使用 `make` 初始化它。程序的输出为：`map is nil. Going to make one`.   
 
+## 向 map 中插入元素  
+
+插入元素给 `map` 的语法与数组相似。下面的代码插入一些新的元素给 `map personSalary`。  
 ```golang
-b is <nil>  
-b after initialization is 0x1040a124
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    personSalary := make(map[string]int)
+    personSalary["steve"] = 12000
+    personSalary["jamie"] = 15000
+    personSalary["mike"] = 9000
+    fmt.Println("personSalary map contents:", personSalary)
+}
 ```
 
-## 利用 `new` 函数创建指针
+上面的程序输出：`personSalary map contents: map[steve:12000 jamie:15000 mike:9000]`。  
 
-Go 还提供一个实用的函数 `new` 来创建指针。`new` 函数接收一个类型，并返回一个该类型的零值指针。
-
-我们来看一个实例：
+也可以在声明时初始化一个数组：  
 
 ```golang
 package main
@@ -88,48 +104,26 @@ import (
 )
 
 func main() {  
-    size := new(int)
-    fmt.Printf("Size value is %d, type is %T, address is %v\n", *size, size, size)
-    *size = 85
-    fmt.Println("New size value is", *size)
+    personSalary := map[string]int {
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    fmt.Println("personSalary map contents:", personSalary)
 }
 ```
 
-上面的程序中，我们在第 8 行利用 `new` 函数创建了一个指向 `int` 类型的指针。由于 `int` 类型的零值为 `0`，变量 `size` 是一个指向 `0` 的整数指针（`*int` 类型）。
-
-程序输出：
+上面的程序在声明 `personSalary` 的同时向其中插入了两个元素。接着插入了一个以 `"mike"` 为键的元素。程序的输出为：  
 
 ```golang
-Size value is 0, type is *int, address is 0x414020  
-New size value is 85
+personSalary map contents: map[steve:12000 jamie:15000 mike:9000] 
 ```
 
-## 指针的间接引用
+`string` 并不是可以作为键的唯一类型，其他所有可以比较的类型，比如，布尔类型，整型，浮点型，复数类型都可以作为键。如果你想了解更多关于可比较类型的话，请参阅：http://golang.org/ref/spec#Comparison_operators  
 
-间接引用（dereference）指针就是获取指针所指向的变量的值。间接引用 `a` 的语句是 `*a`。例如：
+## 访问 map 中的元素  
 
-```golang
-package main  
-import (  
-    "fmt"
-)
-
-func main() {  
-    b := 255
-    a := &b
-    fmt.Println("address of b is", a)
-    fmt.Println("value of b is", *a)
-}
-```
-
-在第 10 行，我们间接引用了 `a` 并打印了它的值，也就是 `b` 的值。程序输出为：
-
-```golang
-address of b is 0x1040a124  
-value of b is 255  
-```
-
-我们再编写一个利用指针改变变量 `b` 的值的程序：
+现在我们已经添加了一些元素给 `map`，现在让我们学习如何从 `map` 中提取它们。根据键获取值的语法为：`map[key]`，例如：  
 
 ```golang
 package main
@@ -139,24 +133,19 @@ import (
 )
 
 func main() {  
-    b := 255
-    a := &b
-    fmt.Println("address of b is", a)
-    fmt.Println("value of b is", *a)
-    *a++
-    fmt.Println("new value of b is", b)
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    employee := "jamie"
+    fmt.Println("Salary of", employee, "is", personSalary[employee])
 }
 ```
 
-在第 12 行，我们将 `a` 所指向的值加上了 1，也就是改变了 `b` 的值（因为 `a` 指向 `b`）。因此 `b` 变成了256，程序输出：
+上面的程序非常简单。员工 `jamie` 的工资被取出并打印。程序的输出为：`Salary of jamie is 15000`。  
 
-```golang
-address of b is 0x1040a124  
-value of b is 255  
-new value of b is 256  
-```
-
-## 将指针传入函数
+如果一个键不存在会发生什么？`map` 会返回值类型的 `0 `值。比如如果访问了 `personSalary` 中的不存在的键，那么将返回 `int` 的 0 值，也就是 0。  
 
 ```golang
 package main
@@ -165,28 +154,34 @@ import (
     "fmt"
 )
 
-func change(val *int) {  
-    *val = 55
-}
 func main() {  
-    a := 58
-    fmt.Println("value of a before function call is",a)
-    b := &a
-    change(b)
-    fmt.Println("value of a after function call is", a)
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    employee := "jamie"
+    fmt.Println("Salary of", employee, "is", personSalary[employee])
+    fmt.Println("Salary of joe is", personSalary["joe"])
 }
 ```
 
-在第 14 行，我们将存有 `a` 的地址的指针 `b` 传入了 `change` 函数。`change` 函数通过间接引用的方法改变了 `a` 的值，程序输出：
+上面的程序输出为:  
 
 ```golang
-value of a before function call is 58  
-value of a after function call is 55 
+Salary of jamie is 15000  
+Salary of joe is 0  
 ```
 
-## 从函数中返回指针
+上面的程序返回 `joe` 的工资为` 0`。我们没有得到任何运行时错误说明键 `joe` 在 `personSalary` 中不存在。
 
-从函数中返回一个局部变量的指针是完全可以的，Go 语言的编译器会将这个变量分配到堆中。
+我们如何检测一个键是否存在于一个 `map` 中呢？可以使用下面的语法：
+
+```golang
+value, ok := map[key]  
+```
+
+上面的语法可以检测一个特定的键是否存在于 `map` 中。如果 `ok` 是 `true`，则键存在，value 被赋值为对应的值。如果 `ok` 为 `false`，则表示键不存在。  
 
 ```golang
 package main
@@ -195,47 +190,30 @@ import (
     "fmt"
 )
 
-func hello() *int {  
-    i := 5
-    return &i
-}
 func main() {  
-    d := hello()
-    fmt.Println("Value of d", *d)
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    newEmp := "joe"
+    value, ok := personSalary[newEmp]
+    if ok == true {
+        fmt.Println("Salary of", newEmp, "is", value)
+    } else {
+        fmt.Println(newEmp,"not found")
+    }
+
 }
 ```
 
-在第 9 行中，我们从 `hello` 函数中返回了局部变量 `i` 的地址。 **该操作在 C/C++ 等语言中是未定义的，因为一旦 `hello` 函数执行“返回”之后，变量 `i` 就不再存在于当前域（scope）内了。但是在 Go 语言中，编译器会进行“逃逸分析”（escape analysis）并且在地址离开当前域时将 `i` 分配到堆中。** 因此这一程序可以运行，输出为：
+在上面的程序中，第 15 行，`ok` 应该为 `false` ，因为 `joe` 不存在。因此程序的输出为：
 
 ```golang
-Value of d 5
+joe not found
 ```
 
-## 不要将指向数组的指针传入函数中！要用切片
-
-假设我们想要在一个函数内部对一个数组进行更改，一种实现方法是将一个指向数组的指针传入函数。
-
-```golang
-package main
-
-import (  
-    "fmt"
-)
-
-func modify(arr *[3]int) {  
-    (*arr)[0] = 90
-}
-
-func main() {  
-    a := [3]int{89, 90, 91}
-    modify(&a)
-    fmt.Println(a)
-}
-```
-
-在第 13 行，我们将数组 `a` 的地址传入 `modify` 函数。在第 8 行，`modify` 函数内，我们间接引用了 `arr` 并且将数组的第一个元素改为 `90`。这个程序会输出：`[90 90 91]`。
-
-**a[x] 是 (\*a)[x] 的简写形式，所以上面程序中的 (\*arr)[0] 可以被 arr[0] 代替。** 我们用简写方法重写这个程序：
+`range for` 可用于遍历 `map` 中所有的元素（译者注：这里 `range` 操作符会返回 `map` 的键和值）。  
 
 ```golang
 package main
@@ -244,22 +222,33 @@ import (
     "fmt"
 )
 
-func modify(arr *[3]int) {  
-    arr[0] = 90
-}
-
 func main() {  
-    a := [3]int{89, 90, 91}
-    modify(&a)
-    fmt.Println(a)
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    fmt.Println("All items of a map")
+    for key, value := range personSalary {
+        fmt.Printf("personSalary[%s] = %d\n", key, value)
+    }
 }
 ```
 
-这个程序也会输出：`[90 90 91]`。
+上面的程序输出如下：  
 
-**尽管我们可以通过将指向数组的指针传入函数中来对数组进行修改，但是这在 Go 语言中并不是地道的方式，我们应该用切片来解决这类问题。**
+```golang
+All items of a map  
+personSalary[mike] = 9000  
+personSalary[steve] = 12000  
+personSalary[jamie] = 15000
+```
 
-我们用切片来重写之前的程序：
+值得注意的是，因为 `map` 是无序的，因此对于程序的每次执行，不能保证使用 `range for` 遍历 `map` 的顺序总是一致的。  
+
+## 删除元素  
+
+`delete(map, key) `用于删除 `map` 中的 `key`。`delete` 函数没有返回值。  
 
 ```golang
 package main
@@ -268,33 +257,196 @@ import (
     "fmt"
 )
 
-func modify(sls []int) {  
-    sls[0] = 90
-}
-
 func main() {  
-    a := [3]int{89, 90, 91}
-    modify(a[:])
-    fmt.Println(a)
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    fmt.Println("map before deletion", personSalary)
+    delete(personSalary, "steve")
+    fmt.Println("map after deletion", personSalary)
+
 }
 ```
 
-在第 13 行，我们将一个切片传入了 `modify` 函数，这个函数将切片的第一个元素改为 `90`，程序输出仍然是：`[90 90 91]`。 **因此，不要再把指向数组的指针传入函数了，应该使用的是切片 :)**
+上面的程序删除以 `steve` 为键的元素。程序输出为：  
 
-## Go 不支持指针的算术运算
+```golang
+map before deletion map[steve:12000 jamie:15000 mike:9000]  
+map after deletion map[mike:9000 jamie:15000] 
+```
 
-不像 C/C++ 中的指针可以进行算术运算，Go 语言并不支持指针算术运算。
+## map 的大小  
+
+用内置函数 `len` 获取 map 的大小：  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    fmt.Println("length is", len(personSalary))
+
+}
+```
+
+上面程序中，`len(personSalary) `获取 `personSalary` 的大小。上面的程序输出：`length is 3`。  
+
+##  map 是引用类型  
+
+与切片一样，map 是引用类型。当一个 map 赋值给一个新的变量，它们都指向同一个内部数据结构。因此改变其中一个也会反映到另一个：  
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    personSalary := map[string]int{
+        "steve": 12000,
+        "jamie": 15000,
+    }
+    personSalary["mike"] = 9000
+    fmt.Println("Original person salary", personSalary)
+    newPersonSalary := personSalary
+    newPersonSalary["mike"] = 18000
+    fmt.Println("Person salary changed", personSalary)
+}
+```
+
+上面的程序中，第 14 行，`personSalary` 赋值给 `newPersonSalary`。下一行，将 `newPersonSalary` 中 `mike` 的工资改为 `18000`。那么在 `personSalary` 中 `mike` 的工资也将变为 `18000`。程序的输出如下：  
+
+```golang
+Original person salary map[steve:12000 jamie:15000 mike:9000]  
+Person salary changed map[jamie:15000 mike:18000 steve:12000] 
+```
+
+将 map 作为参数传递给函数也是一样的。在函数中对 map 的任何修改都会影响在调用函数中看到。  
+
+##  比较 map  
+
+map 不能通过 `== `操作符比较是否相等。`== `操作符只能用来检测 map 是否为 nil。  
 
 ```golang
 package main
 
 func main() {  
-    b := [...]int{109, 110, 111}
-    p := &b
-    p++
+    map1 := map[string]int{
+        "one": 1,
+        "two": 2,
+    }
+
+    map2 := map1
+
+    if map1 == map2 {
+    }
 }
 ```
 
-上面的程序会出现编译错误：`main.go:6: invalid operation: p++ (non-numeric type *[3]int)`。
+上面的程序将会报错：`invalid operation: map1 == map2 (map can only be compared to nil)`。  
 
-我（原文作者）在 [github](https://github.com/golangbot/pointers) 上创建了一个简单的小程序，包含了我们这次所学的全部内容。
+比较两个 map 是否相等的方式是一一比较它们的元素是否相等。我会鼓励你为此编写一个程序，使其工作：）  
+
+我（原文作者）已经将我们讨论的所有概念汇总到一个程序中，你可以从 [github](https://github.com/golangbot/arraysandslices) 下载。  
+
+## 知识扩展  
+
+[Go编程基础视频教程笔记](https://study.163.com/course/courseLearn.htm?courseId=306002#/learn/video?lessonId=421019&courseId=306002)  
+
+```golang
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main(){
+	// 方式一
+	var m map[int]string // 声明一个map
+	fmt.Println(m)
+	m = map[int]string{} // 初始化一个map
+	fmt.Println(m)
+
+	// 方式二
+	var m2 map[int]string = map[int]string{}
+	fmt.Println(m2)
+
+	// 方式三
+	m3 := map[int]string{}
+	fmt.Println(m3)
+
+	// 设置、获取、删除
+	m3[1] = "Tinywan"
+	a := m3[1]
+	fmt.Println(m3) // map[1:Tinywan]
+	fmt.Println(a)  // Tinywan
+
+	delete(m3,1)  // 删除一个map
+	fmt.Println(m3) // map[]
+
+	// 复杂map 的操作
+	var m5 map[int]map[int]string // 定义
+	m5 = make(map[int]map[int]string) // 通过 make 初始化 最外层的 map
+	
+	m5[1] = make(map[int]string) // 针对外层value 的map进行初始化
+	m5[1][1] = "OK"
+	m_a := m5[1][1]  // 取出map 的值赋予一个变量
+	fmt.Println(m_a) // OK
+
+	// 判断一个map 有没有被初始化，使用多返回值判断
+	m_b, ok := m5[2][1]
+	// 判断是否被初始化操作
+	if !ok {
+		m5[2] = make(map[int]string)
+	}
+	m5[2][1] = "OK b"
+	m_b,ok = m5[2][1]
+	fmt.Println(m_b, ok) // OK b true
+
+	// 迭代操作
+	s_map := make([]map[int]string,5) // 以 map 为元素的slice 使用 make 创建一个切片,元素的slic
+	for _,v := range s_map {
+		v = make(map[int]string) // v 是值的拷贝
+		v[1] = "OK"
+		fmt.Println(v);
+	}
+	fmt.Println(s_map)
+
+	// 针对一个 map 直接操作
+	for i := range s_map {
+		s_map[i] = make(map[int]string) 
+		s_map[i][1] = "OK"
+		fmt.Println(s_map[i]);
+	}
+	fmt.Println(s_map)
+
+	// map 的间接排序
+	// map 集合
+	map01 := map[int]string{1:"a", 2:"b", 3:"n", 4:"c", 5:"p", 6:"f"}
+	// 切片
+	slice01 := make([]int, len(map01))
+	i := 0
+	for k, _ := range map01 {
+		slice01[i] = k
+		i++
+	} 
+
+	fmt.Println(slice01) // 返回的是一个无序的数组:[5 6 1 2 3 4] [3 4 5 6 1 2]
+	sort.Ints(slice01)
+	fmt.Println(slice01) // 有序的数组:[1 2 3 4 5 6]
+}
+```
+
+希望你喜欢阅读。请留下宝贵的意见和反馈:)  
