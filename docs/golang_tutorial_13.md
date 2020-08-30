@@ -251,7 +251,7 @@ map after deletion map[mike:9000 jamie:15000]
 
 ## 结构体 map （Map of Structs）
 
-目前我们编写了存储员工工资的 map，那么可否将员工的国籍也存储在 map 中呢？这可以通过结构体 map 来完成。每个员工可以用一个包含了“工资”和“国籍”的结构体来表示，这些结构体将被存储在一个键为 `string` 类型，值为 `struct` 类型的 map 中。
+目前我们编写了存储员工工资的 map，那么可否将员工的国籍也存储在 map 中呢？这可以通过结构体 map 来完成。每个员工可以用一个包含了 `salary` 和 `country` 字段的结构体来表示，这些结构体将被存储在一个键为 `string` 类型，值为 `struct` 类型的 map 中。
 
 ```golang
 package main
@@ -291,7 +291,7 @@ func main() {
 }
 ```
 
-以上程序中，`employee` 结构体包含了 `salary` 和 `country`。
+以上程序中，`employee` 结构体包含了 `salary` 和 `country` 两个字段。
 
 在第25行，我们创建了一个 map，键为字符串类型，值为 `employee` 结构体，并添加了我们创建的三个员工。
 
