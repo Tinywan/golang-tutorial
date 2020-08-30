@@ -48,7 +48,7 @@ var employee struct {
 
 ## 定义具名结构体变量  
 
-下面的程序说明了如何定义一个具名结构体 Employee 的变量。  
+下面的程序说明了如何定义一个具名结构体 `Employee` 的变量。  
 
 ```golang
 package main
@@ -207,7 +207,7 @@ func main() {
 }
 ```  
 
-在上面的程序中，通过 `emp6.firstName` 访问 emp6 中的字段 `firstName`。随后我们修改了该员工的薪水，程序的输出为：  
+在上面的程序中，通过 `emp6.firstName` 访问 `emp6` 中的字段 `firstName`。随后我们修改了该员工的薪水，程序的输出为：  
 
 ```golang
 First Name: Sam  
@@ -372,3 +372,267 @@ func main() {
 }
 ```
 
+这里，名叫 `Person` 的结构体包含一个叫做 `address` 的字段，这个字段本身也是一个结构体。以上程序输出：
+
+```golang
+Name: Ricky 
+Age: 10
+City: Chicago
+State: Illinois
+```
+
+## 提阶字段
+
+如果结构体中的匿名字段也是一个结构体，那么这个匿名结构体字段叫做提阶字段，因为我们可以通过外部结构体变量直接访问匿名结构体中的字段，就像这些字段原本属于外部结构体一样。这个定义有些复杂，所以我们来看一些代码来更好地理解这一概念：
+
+```golang
+type Address struct {  
+    city string
+    state string
+}
+type Person struct {  
+    name string
+    age  int
+    Address
+}
+```
+
+在上面的代码中，名叫 `Person` 的结构体包含了一个匿名结构体字段 `Address`。我们将 `Address` 的字段：`city` 和 `state`，叫做提阶字段，因为我们可以在 `Person` 结构体里直接访问这两个字段，就如同这两个字段在 `Person` 结构体里被声明了一样。
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+type Address struct {  
+    city  string
+    state string
+}
+type Person struct {  
+    name string
+    age  int
+    Address
+}
+
+func main() {  
+    p := Person{
+        name: "Ricky",
+        age:  10,
+        Address: Address{
+            city:  "Chicago",
+            state: "Illinois",
+        },
+    }
+
+    fmt.Println("Name:", p.name)
+    fmt.Println("Age:", p.age)
+    fmt.Println("City:", p.city)   //city is promoted field
+    fmt.Println("State:", p.state) //state is promoted field
+}
+```
+
+在第 29 和 30 行，提阶字段 `city` 和 `state` 可以直接在结构体 `p` 中被访问（利用 `p.city` 和 `p.state` 语句），就好像这两个字段是在 `p` 中被声明的。程序输出：
+
+```golang
+Name: Ricky
+Age: 10
+City: Chicago
+State: Illinois
+```
+
+## 导出结构体和字段
+
+如果一个结构体类型的名称以大写字母开头，那么它就是一个**导出类型**，可以被其他的包访问。同理，如果一个结构体的字段名称以大写字母开头，那么该字段也可以被其他包访问。
+
+我们写一段程序，来理解这一概念：
+
+在 `Documents` 目录下创建一个叫做 `structs` 的文件夹（译者注：本文作者在 `Documents` 目录下创建了文件夹，你也可以根据个人喜好将文件夹创建在任何目录下）：
+
+```
+mkdir ~/Documents/structs
+```
+
+我们再来创建一个叫做 `structs` 的 Go 模块：
+
+```
+cd ~/Documents/structs/  
+go mod init structs  
+```
+
+在 `structs` 文件夹内创建另一个文件夹：`computer`：
+
+```
+mkdir computer
+```
+
+在 `computer` 文件夹内，创建一个叫做 `spec.go` 的文件，写入以下内容：
+
+```golang
+package computer
+
+type Spec struct { //exported struct  
+    Maker string //exported field
+    Price int //exported field
+    model string //unexported field
+    
+}
+```
+
+上面的代码创建了一个叫做 `computer` 的包，里面包含了导出类型的结构体 `Spec`，以及两个导出类型的字段：`Maker` 和 `Price`，还有一个非导出类型的字段：`model`。我们来尝试导入这个包，并使用 `Spec` 结构体。
+
+在 `structs` 文件夹内创建 `main.go` 文件，并写入以下内容：
+
+```golang
+package main
+
+import (  
+    "structs/computer"
+    "fmt"
+)
+
+func main() {  
+    spec := computer.Spec {
+            Maker: "apple",
+            Price: 50000,
+        }
+    fmt.Println("Maker:", spec.Maker)
+    fmt.Println("Price:", spec.Price)
+}
+```
+
+现在，`structs` 文件夹的结构如下：
+
+```
+├── structs
+│   ├── computer
+│   │   └── spec.go
+│   ├── go.mod
+│   └── main.go
+```
+
+在程序的第 4 行中，我们导入了 `computer` 包。在 13 和 14 行，我们访问了 `Spec` 结构体中的 `Maker` 和 `Price` 两个导出类型字段，会得到输出：
+
+```golang
+Maker: apple  
+Price: 50000  
+```
+
+如果我们试图访问非导出类型字段 `model`，编译器就会报错。我们在 `main.go` 中重新写入以下代码：
+
+```golang
+package main
+
+import (  
+    "structs/computer"
+    "fmt"
+)
+
+func main() {  
+    spec := computer.Spec {
+            Maker: "apple",
+            Price: 50000,
+            model: "Mac Mini",
+        }
+    fmt.Println("Maker:", spec.Maker)
+    fmt.Println("Price:", spec.Price)
+}
+```
+
+在第 12 行中，我们尝试访问非导出类型字段 `model`，这会导致编译错误：
+
+```
+# structs
+./main.go:12:13: unknown field 'model' in struct literal of type computer.Spec
+```
+
+## 结构体的比较
+
+**结构体属于值类型，如果两个结构体的字段都是可比较的，那么这两个结构体就是可比较的。如果两个结构体变量对应的字段都是相等的，那么这两个结构体就是相等的。**
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+type name struct {  
+    firstName string
+    lastName  string
+}
+
+func main() {  
+    name1 := name{
+        firstName: "Steve",
+        lastName:  "Jobs",
+    }
+    name2 := name{
+        firstName: "Steve",
+        lastName:  "Jobs",
+    }
+    if name1 == name2 {
+        fmt.Println("name1 and name2 are equal")
+    } else {
+        fmt.Println("name1 and name2 are not equal")
+    }
+
+    name3 := name{
+        firstName: "Steve",
+        lastName:  "Jobs",
+    }
+    name4 := name{
+        firstName: "Steve",
+    }
+
+    if name3 == name4 {
+        fmt.Println("name3 and name4 are equal")
+    } else {
+        fmt.Println("name3 and name4 are not equal")
+    }
+}
+```
+
+上面的程序中，结构体 `name` 包含两个字符串类型的字段。由于字符串是可以比较的，我们因此可以比较两个 `name` 类型的结构体变量。程序输出：
+
+```golang
+name1 and name2 are equal  
+name3 and name4 are not equal  
+```
+
+**但是，如果两个结构体变量包含的字段是不可比较的，那么这两个结构体变量也不可比较。**
+
+```golang
+package main
+
+import (  
+    "fmt"
+)
+
+type image struct {  
+    data map[int]int
+}
+
+func main() {  
+    image1 := image{
+        data: map[int]int{
+            0: 155,
+        }}
+    image2 := image{
+        data: map[int]int{
+            0: 155,
+        }}
+    if image1 == image2 {
+        fmt.Println("image1 and image2 are equal")
+    }
+}
+```
+
+在上面的程序中，结构体类型 `image` 包含了 `map` 类型的字段：`data`。由于 `map` 类型是不可比较的，因此 `image1` 和 `image2` 也不可以进行比较。运行以上程序会发生编译错误：
+
+```
+./prog.go:20:12: invalid operation: image1 == image2 (struct containing map[int]int cannot be compared)
+```
+
+结构体的介绍到此结束，感谢阅读。
